@@ -6,8 +6,6 @@ export default class TestButton extends React.Component {
     super(props);
     this.sayHello = this.sayHello.bind(this);
   }
-
-
   // xu ly su kien
   sayHi(){
     alert(this.props.children);
@@ -15,14 +13,6 @@ export default class TestButton extends React.Component {
   sayHello(){
     alert(this.props.children + ' == konichiwa');
   }
-
-  // lay value tu input , ...
-
-  onAddProduct(){
-    
-  }
-  
-
   render() {
     return (
       <div>    
