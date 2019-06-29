@@ -11,7 +11,7 @@ export default class SizeChange extends React.Component {
   render() {
     return (
         
-        <div className="p-3 bg-info my-2 rounded">
+        <div className="p-3 bg-dark my-2 rounded">
             <Toast>
             <ToastHeader>
                Size: 12px

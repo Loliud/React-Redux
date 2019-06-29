@@ -5,17 +5,26 @@ export default class ColorPicker extends React.Component {
   constructor(props){
     super(props);
     this.state ={
-      color: ['red', 'yellow', 'aqua', 'green']
+      color: ['danger', 'warning', 'info', 'success']
     }
+
   }
 
-  onSelectColor(){
-
+  onSelectColor(color){
+    this.props.onReceiveColor(color);
   }
 
   render() {
+          const elements = this.state.color.map((color, index)=>{
+            return <Button color={color} 
+                      onClick={() => this.onSelectColor(color)}
+                      key={index}>
+                      {color}</Button>;
+          });
+
+          
     return (
-        
+  
         <div className="p-3 bg-info my-2 rounded ">
             <Toast>
             <ToastHeader>
@@ -23,11 +32,8 @@ export default class ColorPicker extends React.Component {
             </ToastHeader>
             <ToastBody>
             <ButtonGroup>
-                <Button color="danger">Red</Button>
-                <Button color="warning">Yellow</Button>
-                <Button color="info">Aqua</Button>
-                <Button color="success">Green</Button>
-                </ButtonGroup>
+                  {elements}
+              </ButtonGroup>
             </ToastBody>
             </Toast>
         </div>
