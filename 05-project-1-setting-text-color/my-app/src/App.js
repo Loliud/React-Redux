@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
 import { Row, Col, Container } from 'reactstrap';
 import ColorPicker from './components/ColorPicker';
+import SizeChange from './components/SizeChange';
+import Reset from './components/Reset';
+import Content from './components/Content';
+import './App.css';
 class App extends Component {
 
 
   render() {
     return (
-      <div>
-        <Container mt="50" >
+      
+      <div className="App">
+        <Container>
           <Row >
-            <Col xs="6" sm="6" md="6" lg="6">
-               <ColorPicker/>
+            <Col >
+               <ColorPicker />
             </Col> 
-          </Row>
+            <Col>
+              <SizeChange/>
+              <Reset/>
+            </Col>
+            <Col sm="12">
+              <Content/>
+            </Col>
+            </Row>
         </Container>
         
       </div>
