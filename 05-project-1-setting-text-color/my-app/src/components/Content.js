@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ButtonGroup, Toast, ToastHeader, ToastBody } from 'reactstrap';
+import { Toast, ToastHeader, ToastBody } from 'reactstrap';
 
 export default class Content extends React.Component {
   constructor(props){
@@ -10,16 +10,17 @@ export default class Content extends React.Component {
   
   
   render() {
-    
+            // nhan font size va color tu cha thong qua props
+            const fontSize = this.props.fontSize;
             const color = this.props.color;
     return (
         
         <div >
             <Toast style={{maxWidth : '100%', marginTop: '5rem', border: '4px solid tomato' }} >
             <ToastHeader  >
-              Color : red = Fontsize: 12px
+              Color : {color} = Fontsize: {fontSize}
             </ToastHeader>
-            <ToastBody className={'text-'+ color}>
+            <ToastBody className={'text-'+ color} style={{fontSize: fontSize}}>
                Konichiwa 
             </ToastBody>
             </Toast>

@@ -3,6 +3,8 @@ body{
   height: 100vh;
   justify-content: center;
   align-items: center;
+  user-select: none;
+  background-image: linear-gradient(to right top, #e8e9eb, #e0e9f0, #d5ebf1, #cceceb, #c8ede0);
 }
 .App {
   text-align: center;
