@@ -1,0 +1,21 @@
+body{
+  height: 100vh;
+  
+}
+.box{
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr
+}
+.nameApp{
+  margin-top: 3rem;
+  grid-column: 1/3
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
