@@ -11,9 +11,12 @@ class App extends Component {
     super(props);
     this.state ={
       // neu trong local storage co data bua books thi se do data cho state
-      books: []
+      books: [],
+      onDisplayForm : false
     }
     this.onGenerateBook = this.onGenerateBook.bind(this);
+    this.onToggleForm = this.onToggleForm.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
   
   // truoc khi mount 
@@ -44,6 +47,24 @@ class App extends Component {
         id: 'm28n882d',
         name: 'Số đỏ',
         status: 'Medium',
+        amount: 50
+      },
+      {
+        id: 'm28f2f2d',
+        name: 'Cánh Đồng Bất Tận',
+        status: 'Hot',
+        amount: 10
+      },
+      {
+        id: 'f2f2f23f23',
+        name: 'Giông Tố',
+        status: 'Medium',
+        amount: 60
+      },
+      {
+        id: '23f238bf',
+        name: 'Nỗi Buồn Chiến Tranh',
+        status: 'Medium',
         amount: 20
       }
     ];
@@ -52,19 +73,39 @@ class App extends Component {
       books: newBooks
     });
     localStorage.setItem('books', JSON.stringify(newBooks));
-    console.log(this.state);
+
   }
 
+  onToggleForm(){
+    this.setState({
+      onDisplayForm: !this.state.onDisplayForm
+    });
+  }
+
+  onSubmit(data){
+    console.log(data);
+    let listBooks = this.state.books;
+    listBooks.push(data);
+    this.setState({
+      books: listBooks,
+      onDisplayForm : false
+    });
+    localStorage.setItem('books', JSON.stringify(listBooks));
+    
+  }
 
   render() {
+    let onDisplayForm = this.state.onDisplayForm;
+    let taskForm = onDisplayForm === true ? <TaskForm onSubmit={this.onSubmit}/> : '';
     return (
       <div className="box">
         <h1 className="nameApp">Quản Lý Thư Viện</h1>
         <div>
           <Row style={{ width: '60%', margin: 'auto' }}>
-            <TaskForm />
-            <Col style={{ margin: 'auto' }} sm="8" >
-              <Button color="primary" onClick={this.onGenerateBook} >Thêm sách mới</Button>
+            {taskForm}
+            <Col style={{ margin: 'auto' }} sm={onDisplayForm === true ? '8': '12'}>
+              <Button color="primary" onClick={this.onToggleForm} >Thêm sách mới</Button>
+              <Button color="warning" onClick={this.onGenerateBook} >Thêm sách mới(demo)</Button>
               <Row style={{ marginTop: "1rem" }}>
                 <Search />
                 <Sort />

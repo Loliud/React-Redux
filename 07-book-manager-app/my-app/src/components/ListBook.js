@@ -9,13 +9,12 @@ class ListBook extends Component {
 
     render() {
         const listBooks = this.props.books;
-        console.log(listBooks);
         // tra ve moi item book trong danh sach
         let elements = listBooks.map((book, index) => {
-            return <tr key={index}>
+            return <tr key={index} style={{textAlign: 'center'}}>
                 <th scope="row">{index + 1}</th>
-                <td>{book.name}</td>
-                <td style={{textAlign: 'center'}}><Badge color={book.status === 'Hot' ? 'success' : 'info'} pill>{book.status}</Badge></td>
+                <td style={{textAlign: 'left'}}>{book.name}</td>
+                <td><Badge color={book.status === 'Hot' ? 'success' : 'info'} pill>{book.status}</Badge></td>
                 <td>{book.amount}</td>
                 <td>
                     <Button color="danger">Xóa</Button>
@@ -27,7 +26,7 @@ class ListBook extends Component {
             <Row style={{ marginTop: '3rem' }}>
                 <Table bordered>
                     <thead>
-                        <tr>
+                        <tr style={{textAlign: 'center'}}>
                             <th>STT</th>
                             <th>Tên sách</th>
                             <th>Trạng thái</th>
@@ -39,7 +38,7 @@ class ListBook extends Component {
                         <tr>
                             <th scope="row"></th>
                             <td><Input type="text" name="searchName" /></td>
-                            <td>
+                            <td style={{textAlign: 'center'}}>
                                 <UncontrolledButtonDropdown >
                                     <DropdownToggle caret color="primary">
                                         Trạng thái
