@@ -12,13 +12,15 @@ class App extends Component {
     this.state ={
       // neu trong local storage co data bua books thi se do data cho state
       books: [],
-      onDisplayForm : false
+      onDisplayForm : false,
+      taskEdit: null
     }
     this.onGenerateBook = this.onGenerateBook.bind(this);
     this.onToggleForm = this.onToggleForm.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onChangeStatus = this.onChangeStatus.bind(this);
     this.onRemoveItem = this.onRemoveItem.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
   }
   
   // truoc khi mount 
@@ -26,7 +28,8 @@ class App extends Component {
     if(localStorage && localStorage.getItem('books')){
       const books = JSON.parse(localStorage.getItem('books'));
       this.setState({
-        books: books
+        books: books,
+        
       });
     }
   }
@@ -87,22 +90,49 @@ class App extends Component {
 
   // Submit task form
   onSubmit(data){
-    console.log(data);
+
     let listBooks = this.state.books;
-    listBooks.push(data);
-    this.setState({
-      books: listBooks,
-      onDisplayForm : false
+    let key = 0;
+    let index;
+    listBooks.forEach((item, i)=>{
+      if(item.id === data.id){
+        key = 1;
+        index = i;
+      } 
     });
+   
+    if(key === 1){
+      console.log(index);
+      listBooks.splice(index, 1, data);
+      this.setState({
+        books: listBooks,
+        onDisplayForm : false
+      });
+    }else{
+      listBooks.push(data);
+      this.setState({
+        books: listBooks,
+        onDisplayForm : false
+      });
+    }
+   
     localStorage.setItem('books', JSON.stringify(listBooks));
     
   }
   // task form
   onExitTaskForm = () =>{
         this.setState({
-          onDisplayForm: false
+          onDisplayForm: false,
+          taskEdit: null
         });
   }
+  // mo task form de edit
+  onOpenTaskForm = ()=>{
+    this.setState({
+      onDisplayForm: true
+    });
+
+  } 
   // change status
   onChangeStatus(data){
     this.setState({
@@ -119,10 +149,29 @@ class App extends Component {
     this.onExitTaskForm();
 
   }
+  onUpdate(data){
+    let listBooks = this.state.books;
+    let editBook;
+    listBooks.forEach((item) =>{
+      if(item.id === data){
+        editBook = item;
+      }
+    });
+    this.setState({
+      taskEdit: editBook
+    });
+    this.onOpenTaskForm();
+
+  }
 
   render() {
+  
+    
     let onDisplayForm = this.state.onDisplayForm;
-    let taskForm = onDisplayForm === true ? <TaskForm onSubmit={this.onSubmit} onExit={this.onExitTaskForm}/> : '';
+    let taskForm = onDisplayForm === true ? <TaskForm onSubmit={this.onSubmit} 
+                                                      onExit={this.onExitTaskForm}
+                                                      taskEdit={this.state.taskEdit}
+                                                      /> : '';
     return (
       <div className="box">
         <h1 className="nameApp">Quản Lý Thư Viện</h1>
@@ -130,13 +179,14 @@ class App extends Component {
           <Row style={{ width: '60%', margin: 'auto' }}>
             {taskForm}
             <Col style={{ margin: 'auto' }} sm={onDisplayForm === true ? '8': '12'}>
-              <Button color="primary" onClick={this.onToggleForm} > <i class="fas fa-plus"></i>  Thêm sách mới</Button>
+              <Button color="primary" onClick={this.onToggleForm} > <i className="fas fa-plus"></i>  Thêm sách mới</Button>
               <Button color="warning" onClick={this.onGenerateBook} >Thêm sách mới(demo)</Button>
               <Row style={{ marginTop: "1rem" }}>
                 <Search />
                 <Sort />
               </Row>
               <ListBook 
+                      onUpdate={this.onUpdate}
                       onRemoveItem={this.onRemoveItem}
                       onChangeStatus={this.onChangeStatus} 
                       books={this.state.books}/>

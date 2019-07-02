@@ -7,6 +7,7 @@ class ListBook extends Component {
         this.changeStatus = this.changeStatus.bind(this);
         this.changeStatus = this.changeStatus.bind(this);
         this.onRemove = this.onRemove.bind(this);
+        this.onUpdate = this.onUpdate.bind(this);
 
     }
 
@@ -22,6 +23,10 @@ class ListBook extends Component {
     onRemove(listBooks, index) {
         listBooks.splice(index, 1);
         this.props.onRemoveItem(listBooks);
+    }
+
+    onUpdate(id) {
+        this.props.onUpdate(id);
     }
 
 
@@ -41,13 +46,13 @@ class ListBook extends Component {
                 <td >
                     <Button style={{ marginRight: '0.4rem', color: 'white' }}
                         color="warning"
-                    ><i class="fas fa-edit"></i>Sửa</Button>
+                        onClick={() => this.onUpdate(book.id)}
+                    ><i className="fas fa-edit" ></i>Sửa</Button>
 
                     <Button color="danger"
                         style={{ color: 'white' }}
                         onClick={() => this.onRemove(listBooks, index)}
-                    ><i class="far fa-trash-alt"></i>  Xóa</Button>
-
+                    ><i className="far fa-trash-alt"></i>  Xóa</Button>
                 </td>
             </tr>
         });
