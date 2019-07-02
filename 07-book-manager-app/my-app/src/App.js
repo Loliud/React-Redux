@@ -17,6 +17,8 @@ class App extends Component {
     this.onGenerateBook = this.onGenerateBook.bind(this);
     this.onToggleForm = this.onToggleForm.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onChangeStatus = this.onChangeStatus.bind(this);
+    this.onRemoveItem = this.onRemoveItem.bind(this);
   }
   
   // truoc khi mount 
@@ -76,12 +78,14 @@ class App extends Component {
 
   }
 
+  // Exit task form
   onToggleForm(){
     this.setState({
       onDisplayForm: !this.state.onDisplayForm
     });
   }
 
+  // Submit task form
   onSubmit(data){
     console.log(data);
     let listBooks = this.state.books;
@@ -93,10 +97,32 @@ class App extends Component {
     localStorage.setItem('books', JSON.stringify(listBooks));
     
   }
+  // task form
+  onExitTaskForm = () =>{
+        this.setState({
+          onDisplayForm: false
+        });
+  }
+  // change status
+  onChangeStatus(data){
+    this.setState({
+      books: data
+    });
+    localStorage.setItem('books', JSON.stringify(data));
+  }
+  // remove 1 item in lists
+  onRemoveItem(data){
+    this.setState({
+      books: data
+    });
+    localStorage.setItem('books', JSON.stringify(data));
+    this.onExitTaskForm();
+
+  }
 
   render() {
     let onDisplayForm = this.state.onDisplayForm;
-    let taskForm = onDisplayForm === true ? <TaskForm onSubmit={this.onSubmit}/> : '';
+    let taskForm = onDisplayForm === true ? <TaskForm onSubmit={this.onSubmit} onExit={this.onExitTaskForm}/> : '';
     return (
       <div className="box">
         <h1 className="nameApp">Quản Lý Thư Viện</h1>
@@ -104,13 +130,16 @@ class App extends Component {
           <Row style={{ width: '60%', margin: 'auto' }}>
             {taskForm}
             <Col style={{ margin: 'auto' }} sm={onDisplayForm === true ? '8': '12'}>
-              <Button color="primary" onClick={this.onToggleForm} >Thêm sách mới</Button>
+              <Button color="primary" onClick={this.onToggleForm} > <i class="fas fa-plus"></i>  Thêm sách mới</Button>
               <Button color="warning" onClick={this.onGenerateBook} >Thêm sách mới(demo)</Button>
               <Row style={{ marginTop: "1rem" }}>
                 <Search />
                 <Sort />
               </Row>
-              <ListBook books={this.state.books}/>
+              <ListBook 
+                      onRemoveItem={this.onRemoveItem}
+                      onChangeStatus={this.onChangeStatus} 
+                      books={this.state.books}/>
             </Col>
           </Row>
         </div>
