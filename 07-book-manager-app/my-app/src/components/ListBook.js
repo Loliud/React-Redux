@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
-import { Button, Input, UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle, Row, Table, Badge } from 'reactstrap';
+import { Button, Input,FormGroup,  Row, Table, Badge } from 'reactstrap';
 
 class ListBook extends Component {
     constructor(props) {
         super(props);
+        
+        this.state ={
+            filterName: '',
+            filterStatus: ''
+        }
+
         this.changeStatus = this.changeStatus.bind(this);
         this.changeStatus = this.changeStatus.bind(this);
         this.onRemove = this.onRemove.bind(this);
         this.onUpdate = this.onUpdate.bind(this);
+        this.onChange = this.onChange.bind(this);
 
     }
 
@@ -27,11 +34,53 @@ class ListBook extends Component {
 
     onUpdate(id) {
         this.props.onUpdate(id);
+        
     }
 
+    onChange(event){
+        let target = event.target;
+        let value = target.value;
+        let name = target.name;
+        
+        let filter = {
+            [name] : value
+        };
+        console.log(filter);
+        this.setState({
+            filterName: filter.filterName,
+            filterStatus: filter.filterStatus
+        });
+        this.props.onFilter(filter);
+
+    }
 
     render() {
-        const listBooks = this.props.books;
+        let listBooks = this.props.books;
+        const filterItem = this.props.itemFilter;
+        
+        if(filterItem !== null){
+           if(filterItem.filterName){
+            listBooks = listBooks.filter((task)=>{
+                if(task.name.toLowerCase().indexOf(filterItem.filterName.toLowerCase()) !== -1){
+                    return task;
+                }
+                
+            });
+           }
+           if(filterItem.filterStatus){
+               listBooks = listBooks.filter((item)=>{
+                    if(filterItem.filterStatus === item.status){
+                        return item;
+                    }
+               });
+           }
+            
+            
+        }
+      
+    
+       
+        console.log(filterItem);
         // tra ve moi item book trong danh sach
         let elements = listBooks.map((book, index) => {
             return <tr key={index} style={{ textAlign: 'center' }} className="item">
@@ -47,12 +96,12 @@ class ListBook extends Component {
                     <Button style={{ marginRight: '0.4rem', color: 'white' }}
                         color="warning"
                         onClick={() => this.onUpdate(book.id)}
-                    ><i className="fas fa-edit" ></i>Sửa</Button>
+                    >Sửa</Button>
 
                     <Button color="danger"
                         style={{ color: 'white' }}
                         onClick={() => this.onRemove(listBooks, index)}
-                    ><i className="far fa-trash-alt"></i>  Xóa</Button>
+                    >Xóa</Button>
                 </td>
             </tr>
         });
@@ -71,18 +120,15 @@ class ListBook extends Component {
                     <tbody>
                         <tr>
                             <th scope="row"></th>
-                            <td><Input type="text" name="searchName" /></td>
+                            <td><Input type="text" name="filterName" value={this.state.filterName} onChange={this.onChange} /></td>
                             <td style={{ textAlign: 'center' }}>
-                                <UncontrolledButtonDropdown >
-                                    <DropdownToggle caret color="primary">
-                                        Trạng thái
-                      </DropdownToggle>
-                                    <DropdownMenu>
-                                        <DropdownItem>Được mua nhiều</DropdownItem>
-                                        <DropdownItem>Bình thường </DropdownItem>
-                                        <DropdownItem>Kém</DropdownItem>
-                                    </DropdownMenu>
-                                </UncontrolledButtonDropdown>
+                              <FormGroup >
+                                <Input type="select" name="filterStatus" value={this.state.filterStatus} onChange={this.onChange}>
+                                    <option value="">Lựa chọn</option>
+                                    <option value="Hot">Hot</option>
+                                    <option value="Medium">Medium</option>
+                                </Input>
+                                </FormGroup>
                             </td>
                             <td></td>
                             <td></td>

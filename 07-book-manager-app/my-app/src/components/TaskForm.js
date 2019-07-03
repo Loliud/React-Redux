@@ -33,6 +33,28 @@ class TaskForm extends Component {
 
     }
 
+    // nhung props dc nhan sau khi da mount dau tien
+    componentWillReceiveProps(nextProps){
+       if(nextProps && nextProps.taskEdit){
+        this.setState({
+            id: nextProps.taskEdit.id,
+            name: nextProps.taskEdit.name,
+            amount: nextProps.taskEdit.amount,
+            status: nextProps.taskEdit.status
+        });
+       }
+
+       else if(nextProps && nextProps.taskEdit === null){
+           this.setState({
+                id: '',
+                name: '',
+                amount: '',
+                status: 'None'
+           });
+       }
+
+    }
+
     onChange(event) {
         let id;
         if (this.state.id === '') {
@@ -79,9 +101,9 @@ class TaskForm extends Component {
                 <div className="p-3 bg-info my-2 rounded">
 
                     <Toast>
-                        <Alert color="warning">
-                            This is a warning alert — check it out!
-                            <p  onClick={onExit}>Off</p>
+                        <Alert color="warning" style={{paddingBottom: '2rem'}}>
+                            <p style={{float: 'left'}}>{title}</p> 
+                             <p style={{float: 'right', margin: '0', cursor: 'pointer'}} onClick={onExit}>X</p>
                       </Alert>
                         
 
