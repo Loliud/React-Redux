@@ -14,7 +14,10 @@ class App extends Component {
       books: [],
       onDisplayForm : false,
       taskEdit: null,
-      filter: null
+      filter: null,
+      keyword: null,
+      sortBy: null,
+      sortValue: null
     }
     this.onGenerateBook = this.onGenerateBook.bind(this);
     this.onToggleForm = this.onToggleForm.bind(this);
@@ -23,6 +26,8 @@ class App extends Component {
     this.onRemoveItem = this.onRemoveItem.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
     this.onFilter = this.onFilter.bind(this);
+    this.onSearch = this.onSearch.bind(this);
+    this.onSort = this.onSort.bind(this);
   }
   
   // truoc khi mount 
@@ -101,6 +106,7 @@ class App extends Component {
   // Submit task form
   onSubmit(data){
 
+
     let listBooks = this.state.books;
     let key = 0;
     let index;
@@ -152,10 +158,20 @@ class App extends Component {
   }
   // remove 1 item in lists
   onRemoveItem(data){
-    this.setState({
-      books: data
+    
+    let listTasks = this.state.books;
+    let index;
+    listTasks.forEach((item)=>{
+      if(item.id === data){
+          index = listTasks.indexOf(item);
+      }
     });
-    localStorage.setItem('books', JSON.stringify(data));
+    listTasks.splice(index, 1);
+    console.log(listTasks);
+    this.setState({
+      books: listTasks
+    });
+    localStorage.setItem('books', JSON.stringify(listTasks));
     this.onExitTaskForm();
 
   }
@@ -173,15 +189,40 @@ class App extends Component {
     this.onOpenTaskForm();
 
   }
-  onFilter(data){
+  onFilter(filterName, filterStatus){
+   
+    let filter = {
+      filterName: filterName,
+      filterStatus: filterStatus
+    }
     this.setState({
-      filter: data
+      filter: filter
+    });
+   
+  }
+  onSearch(keyword){
+    this.setState({
+      keyword: keyword
+    });
+  }
+  onSort(sortBy, sortValue){
+    this.setState({
+      sortBy: sortBy,
+      sortValue: sortValue
     });
   }
 
   render() {
   
-    
+    let itemFilter = this.state.filter;
+    let keyword = this.state.keyword;
+    let sortBy = this.state.sortBy;
+    let sortValue = this.state.sortValue;
+    console.log(sortBy, sortValue);
+    if(keyword){
+      console.log(keyword);
+      itemFilter = keyword;
+    }
     let onDisplayForm = this.state.onDisplayForm;
     let taskForm = onDisplayForm === true ? <TaskForm onSubmit={this.onSubmit} 
                                                       onExit={this.onExitTaskForm}
@@ -194,14 +235,16 @@ class App extends Component {
           <Row style={{ width: '60%', margin: 'auto' }}>
             {taskForm}
             <Col style={{ margin: 'auto' }} sm={onDisplayForm === true ? '8': '12'}>
-              <Button color="primary" onClick={this.onToggleForm} >  Thêm sách mới</Button>
-              <Button color="warning" onClick={this.onGenerateBook} >Thêm sách mới(demo)</Button>
+              <Button color="primary" onClick={this.onToggleForm} style={{marginRight: '0.5rem'}}>  Thêm sách mới</Button>
+              <Button color="warning" onClick={this.onGenerateBook} >Tạo nhanh dữ liệu </Button>
               <Row style={{ marginTop: "1rem" }}>
-                <Search />
-                <Sort />
+                <Search onSearch={this.onSearch}/>
+                <Sort onSort={this.onSort} />
               </Row>
               <ListBook 
-                      itemFilter={this.state.filter}
+                      sortBy={sortBy} 
+                      sortValue={sortValue}
+                      itemFilter={itemFilter}
                       onFilter={this.onFilter}
                       onUpdate={this.onUpdate}
                       onRemoveItem={this.onRemoveItem}

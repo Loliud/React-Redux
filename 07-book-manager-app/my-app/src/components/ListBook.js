@@ -27,9 +27,9 @@ class ListBook extends Component {
         this.props.onChangeStatus(listBooks);
 
     }
-    onRemove(listBooks, index) {
-        listBooks.splice(index, 1);
-        this.props.onRemoveItem(listBooks);
+    onRemove(id) {
+       console.log(id);
+       this.props.onRemoveItem(id);
     }
 
     onUpdate(id) {
@@ -42,23 +42,32 @@ class ListBook extends Component {
         let value = target.value;
         let name = target.name;
         
-        let filter = {
-            [name] : value
-        };
-        console.log(filter);
+        this.props.onFilter(
+            name === 'filterName' ? value : this.state.filterName,
+            name === 'filterStatus' ? value : this.state.filterStatus,
+        );
         this.setState({
-            filterName: filter.filterName,
-            filterStatus: filter.filterStatus
-        });
-        this.props.onFilter(filter);
+            [name] : value
+          });
 
     }
 
     render() {
         let listBooks = this.props.books;
+        let sortBy = this.props.sortBy;
+        let sortValue = this.props.sortValue;
+        console.log(sortBy, sortValue);
         const filterItem = this.props.itemFilter;
-        
-        if(filterItem !== null){
+    
+        if(typeof(filterItem) === 'string'){
+            listBooks = listBooks.filter((task)=>{
+                if(task.name.toLowerCase().indexOf(filterItem.toLowerCase()) !== -1){
+                    return task;
+                }
+                
+            });
+        }
+        else if(filterItem !== null){
            if(filterItem.filterName){
             listBooks = listBooks.filter((task)=>{
                 if(task.name.toLowerCase().indexOf(filterItem.filterName.toLowerCase()) !== -1){
@@ -66,22 +75,51 @@ class ListBook extends Component {
                 }
                 
             });
-           }
-           if(filterItem.filterStatus){
-               listBooks = listBooks.filter((item)=>{
-                    if(filterItem.filterStatus === item.status){
-                        return item;
-                    }
-               });
-           }
-            
-            
+           }   
         }
-      
+        
+        if(filterItem && filterItem.filterStatus){
+           
+                listBooks = listBooks.filter((item)=>{
+                     if(filterItem.filterStatus === item.status){
+                         return item;
+                     }
+                });
+           
+        }
+
+        // sap xep
+        if(sortBy === 'name'){
+            listBooks.sort((a,b) =>{
+                if(a.name > b.name){
+                    return sortValue;
+                }
+                if(a.name < b.name){
+                    return -sortValue;
+                }
+                if(a.name === b.name){
+                    return 0;
+                }
+            });
+        }
+        // if(sortBy === 'status'){
+        //     listBooks.sort((a,b) =>{
+        //         if(a.status > b.status){
+        //             return sortValue;
+        //         }
+        //         if(a.status < b.value){
+        //             return -sortValue;
+        //         }
+        //         if(a.status === b.status){
+        //             return 0;
+        //         }
+        //     });
+        // }
+        
     
        
-        console.log(filterItem);
-        // tra ve moi item book trong danh sach
+     
+        //tra ve moi item book trong danh sach
         let elements = listBooks.map((book, index) => {
             return <tr key={index} style={{ textAlign: 'center' }} className="item">
                 <th scope="row">{index + 1}</th>
@@ -100,7 +138,7 @@ class ListBook extends Component {
 
                     <Button color="danger"
                         style={{ color: 'white' }}
-                        onClick={() => this.onRemove(listBooks, index)}
+                        onClick={() => this.onRemove(book.id)}
                     >Xóa</Button>
                 </td>
             </tr>

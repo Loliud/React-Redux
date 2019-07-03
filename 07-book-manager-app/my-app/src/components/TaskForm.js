@@ -49,7 +49,7 @@ class TaskForm extends Component {
                 id: '',
                 name: '',
                 amount: '',
-                status: 'None'
+                status: 'Hot'
            });
        }
 
