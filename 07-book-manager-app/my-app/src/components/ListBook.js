@@ -18,17 +18,13 @@ class ListBook extends Component {
 
     }
 
-    changeStatus(listBooks, index) {
-        if (listBooks[index].status === 'Hot') {
-            listBooks[index].status = 'Medium';
-        } else {
-            listBooks[index].status = 'Hot';
-        }
-        this.props.onChangeStatus(listBooks);
+    changeStatus(id) {
+        
+        this.props.onChangeStatus(id);
 
     }
     onRemove(id) {
-       console.log(id);
+       
        this.props.onRemoveItem(id);
     }
 
@@ -56,7 +52,7 @@ class ListBook extends Component {
         let listBooks = this.props.books;
         let sortBy = this.props.sortBy;
         let sortValue = this.props.sortValue;
-        console.log(sortBy, sortValue);
+      
         const filterItem = this.props.itemFilter;
     
         if(typeof(filterItem) === 'string'){
@@ -127,7 +123,7 @@ class ListBook extends Component {
                 <td><Badge
                     style={{ cursor: 'pointer' }}
                     color={book.status === 'Hot' ? 'success' : 'info'} pill
-                    onClick={() => this.changeStatus(listBooks, index)}
+                    onClick={() => this.changeStatus(book.id)}
                 >{book.status}</Badge></td>
                 <td>{book.amount}</td>
                 <td >

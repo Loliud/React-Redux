@@ -118,7 +118,7 @@ class App extends Component {
     });
    
     if(key === 1){
-      console.log(index);
+     
       listBooks.splice(index, 1, data);
       this.setState({
         books: listBooks,
@@ -151,10 +151,24 @@ class App extends Component {
   } 
   // change status
   onChangeStatus(data){
-    this.setState({
-      books: data
+    console.log(data);
+    let listTasks = this.state.books;
+    let index;
+    listTasks.forEach((item)=>{
+      if(item.id === data){
+          index = listTasks.indexOf(item);
+      }
     });
-    localStorage.setItem('books', JSON.stringify(data));
+  
+    if(listTasks[index].status === 'Hot'){
+        listTasks[index].status = 'Medium';
+    }else{
+      listTasks[index].status = 'Hot';
+    }
+    this.setState({
+      books: listTasks
+    });
+    localStorage.setItem('books', JSON.stringify(listTasks));
   }
   // remove 1 item in lists
   onRemoveItem(data){
@@ -167,7 +181,7 @@ class App extends Component {
       }
     });
     listTasks.splice(index, 1);
-    console.log(listTasks);
+    
     this.setState({
       books: listTasks
     });
@@ -218,9 +232,9 @@ class App extends Component {
     let keyword = this.state.keyword;
     let sortBy = this.state.sortBy;
     let sortValue = this.state.sortValue;
-    console.log(sortBy, sortValue);
+   
     if(keyword){
-      console.log(keyword);
+      
       itemFilter = keyword;
     }
     let onDisplayForm = this.state.onDisplayForm;
