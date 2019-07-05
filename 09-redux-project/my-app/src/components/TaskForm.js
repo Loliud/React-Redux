@@ -67,7 +67,7 @@ class TaskForm extends Component {
             id: id ? id : this.state.id,
             [name]: value
         });
-        console.log(this.state);
+       
 
     }
 

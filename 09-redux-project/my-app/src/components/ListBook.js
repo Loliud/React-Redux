@@ -57,19 +57,15 @@ class ListBook extends Component {
     
         if(typeof(filterItem) === 'string'){
             listBooks = listBooks.filter((task)=>{
-                if(task.name.toLowerCase().indexOf(filterItem.toLowerCase()) !== -1){
-                    return task;
-                }
+                
+                return task.name.toLowerCase().indexOf(filterItem.toLowerCase()) !== -1
                 
             });
         }
         else if(filterItem !== null){
            if(filterItem.filterName){
             listBooks = listBooks.filter((task)=>{
-                if(task.name.toLowerCase().indexOf(filterItem.filterName.toLowerCase()) !== -1){
-                    return task;
-                }
-                
+               return task.name.toLowerCase().indexOf(filterItem.filterName.toLowerCase()) !== -1  
             });
            }   
         }
@@ -77,9 +73,11 @@ class ListBook extends Component {
         if(filterItem && filterItem.filterStatus){
            
                 listBooks = listBooks.filter((item)=>{
+                        let result;
                      if(filterItem.filterStatus === item.status){
-                         return item;
+                         result = item;
                      }
+                     return result;
                 });
            
         }
@@ -93,9 +91,8 @@ class ListBook extends Component {
                 if(a.name < b.name){
                     return -sortValue;
                 }
-                if(a.name === b.name){
                     return 0;
-                }
+                
             });
         }
         // if(sortBy === 'status'){

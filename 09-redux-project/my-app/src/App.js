@@ -151,7 +151,7 @@ class App extends Component {
   } 
   // change status
   onChangeStatus(data){
-    console.log(data);
+    
     let listTasks = this.state.books;
     let index;
     listTasks.forEach((item)=>{
