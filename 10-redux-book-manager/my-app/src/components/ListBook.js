@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Input,FormGroup,  Row, Table, Badge } from 'reactstrap';
+import {connect} from 'react-redux';
 
 class ListBook extends Component {
     constructor(props) {
@@ -174,5 +175,11 @@ class ListBook extends Component {
 
     }
 }
+let itemStatetoProps = (state) =>{
+    return {
+        books: state.tasks
+    }
+}
+ 
 
-export default ListBook;
+export default connect(itemStatetoProps, null)(ListBook);

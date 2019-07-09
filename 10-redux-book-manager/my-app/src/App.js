@@ -5,7 +5,7 @@ import Search from './components/Search';
 import Sort from './components/Sort';
 import ListBook from './components/ListBook';
 import './App.css';
-import demo from './trainning/demo.js';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -263,7 +263,8 @@ class App extends Component {
                       onUpdate={this.onUpdate}
                       onRemoveItem={this.onRemoveItem}
                       onChangeStatus={this.onChangeStatus} 
-                      books={this.state.books}/>
+                      // books={this.state.books}
+                      />
             </Col>
           </Row>
         </div>
