@@ -19,7 +19,7 @@ class App extends Component {
       sortBy: null,
       sortValue: null
     }
-    this.onGenerateBook = this.onGenerateBook.bind(this);
+
     this.onToggleForm = this.onToggleForm.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onChangeStatus = this.onChangeStatus.bind(this);
@@ -31,62 +31,8 @@ class App extends Component {
   }
   
   // truoc khi mount 
-  componentWillMount(){
-    if(localStorage && localStorage.getItem('books')){
-      const books = JSON.parse(localStorage.getItem('books'));
-      this.setState({
-        books: books,
-        
-      });
-    }
-  }
-
-  onGenerateBook(){
-    let newBooks = [
-      {
-        id: 'ahdv6auy',
-        name: 'Tuổi Thơ Dữ Dội',
-        status: 'Hot',
-        amount: 50
-      },
-      {
-        id: 'ndadb8723',
-        name: 'Chí Phèo',
-        status: 'Hot',
-        amount: 100
-      },
-      {
-        id: 'm28n882d',
-        name: 'Số đỏ',
-        status: 'Medium',
-        amount: 50
-      },
-      {
-        id: 'm28f2f2d',
-        name: 'Cánh Đồng Bất Tận',
-        status: 'Hot',
-        amount: 10
-      },
-      {
-        id: 'f2f2f23f23',
-        name: 'Giông Tố',
-        status: 'Medium',
-        amount: 60
-      },
-      {
-        id: '23f238bf',
-        name: 'Nỗi Buồn Chiến Tranh',
-        status: 'Medium',
-        amount: 20
-      }
-    ];
-    // su dung local storage de luu du lien tren trinh duyet(nen luu duoi dang string)
-    this.setState({
-      books: newBooks
-    });
-    localStorage.setItem('books', JSON.stringify(newBooks));
-
-  }
+  
+ 
 
   // Exit task form
   onToggleForm(){
@@ -250,7 +196,6 @@ class App extends Component {
             {taskForm}
             <Col style={{ margin: 'auto' }} sm={onDisplayForm === true ? '8': '12'}>
               <Button color="primary" onClick={this.onToggleForm} style={{marginRight: '0.5rem'}}>  Thêm sách mới</Button>
-              <Button color="warning" onClick={this.onGenerateBook} >Tạo nhanh dữ liệu </Button>
               <Row style={{ marginTop: "1rem" }}>
                 <Search onSearch={this.onSearch}/>
                 <Sort onSort={this.onSort} />

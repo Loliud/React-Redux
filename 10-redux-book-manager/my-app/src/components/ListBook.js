@@ -96,19 +96,7 @@ class ListBook extends Component {
                 
             });
         }
-        // if(sortBy === 'status'){
-        //     listBooks.sort((a,b) =>{
-        //         if(a.status > b.status){
-        //             return sortValue;
-        //         }
-        //         if(a.status < b.value){
-        //             return -sortValue;
-        //         }
-        //         if(a.status === b.status){
-        //             return 0;
-        //         }
-        //     });
-        // }
+        
         
     
        

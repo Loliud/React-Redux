@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, Toast, Alert, ToastBody, Col } from 'reactstrap';
 
+import *as actions from '../actions/index';
+import {connect} from 'react-redux';
+
 
 
 
@@ -73,7 +76,9 @@ class TaskForm extends Component {
 
     onSubmit(event) {
         event.preventDefault();
-        this.props.onSubmit(this.state);
+        this.props.onExit();
+        console.log(this.props.onAddTask(this.state));
+       
     }
     // cach dung arrow function de ko can bind
 
@@ -140,4 +145,18 @@ class TaskForm extends Component {
     }
 }
 
-export default TaskForm;
+let mapStatetoProps = (state) =>{
+    return {
+
+    }
+}
+
+let mapDispatchToProps = (dispatch, props) =>{
+    return {
+        onAddTask: (task)=>{
+            dispatch(actions.addNewItem(task));
+        }
+    }
+}
+
+export default connect(mapStatetoProps, mapDispatchToProps)(TaskForm);

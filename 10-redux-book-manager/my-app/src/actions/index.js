@@ -4,3 +4,10 @@ export const listAll = () =>{
         type: types.LIST_ALL
     }
 }
+
+export const addNewItem = (task) =>{
+    return{
+        type: types.ADD_NEW_TASK,
+        task
+    }
+}
