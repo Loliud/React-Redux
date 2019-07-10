@@ -6,13 +6,15 @@ import Sort from './components/Sort';
 import ListBook from './components/ListBook';
 import './App.css';
 
+import *as actions from './actions/index';
+import {connect} from 'react-redux';
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state ={
       // neu trong local storage co data bua books thi se do data cho state
       books: [],
-      onDisplayForm : false,
       taskEdit: null,
       filter: null,
       keyword: null,
@@ -21,7 +23,7 @@ class App extends Component {
     }
 
     this.onToggleForm = this.onToggleForm.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+  
     this.onChangeStatus = this.onChangeStatus.bind(this);
     this.onRemoveItem = this.onRemoveItem.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
@@ -36,63 +38,19 @@ class App extends Component {
 
   // Exit task form
   onToggleForm(){
-    if(this.state.taskEdit !== null){
-      this.setState({
-        taskEdit: null,
-        onDisplayForm: true
-      });
-    }else{
-      this.setState({
-        onDisplayForm: !this.state.onDisplayForm
-      });
-    }
-    
+    this.props.onToggleForm();
   }
 
   // Submit task form
-  onSubmit(data){
-
-
-    let listBooks = this.state.books;
-    let key = 0;
-    let index;
-    listBooks.forEach((item, i)=>{
-      if(item.id === data.id){
-        key = 1;
-        index = i;
-      } 
-    });
-   
-    if(key === 1){
-     
-      listBooks.splice(index, 1, data);
-      this.setState({
-        books: listBooks,
-        onDisplayForm : false
-      });
-    }else{
-      listBooks.push(data);
-      this.setState({
-        books: listBooks,
-        onDisplayForm : false
-      });
-    }
-   
-    localStorage.setItem('books', JSON.stringify(listBooks));
-    
-  }
+ 
   // task form
   onExitTaskForm = () =>{
-        this.setState({
-          onDisplayForm: false,
-          taskEdit: null
-        });
+    this.props.onExitForm();
+      
   }
   // mo task form de edit
   onOpenTaskForm = ()=>{
-    this.setState({
-      onDisplayForm: true
-    });
+    this.props.onOpenForm();
 
   } 
   // change status
@@ -183,8 +141,8 @@ class App extends Component {
       
       itemFilter = keyword;
     }
-    let onDisplayForm = this.state.onDisplayForm;
-    let taskForm = onDisplayForm === true ? <TaskForm onSubmit={this.onSubmit} 
+    let {isFormDisplay} = this.props;
+    let taskForm = isFormDisplay === true ? <TaskForm
                                                       onExit={this.onExitTaskForm}
                                                       taskEdit={this.state.taskEdit}
                                                       /> : '';
@@ -194,7 +152,7 @@ class App extends Component {
         <div>
           <Row style={{ width: '60%', margin: 'auto' }}>
             {taskForm}
-            <Col style={{ margin: 'auto' }} sm={onDisplayForm === true ? '8': '12'}>
+            <Col style={{ margin: 'auto' }} sm={isFormDisplay === true ? '8': '12'}>
               <Button color="primary" onClick={this.onToggleForm} style={{marginRight: '0.5rem'}}>  Thêm sách mới</Button>
               <Row style={{ marginTop: "1rem" }}>
                 <Search onSearch={this.onSearch}/>
@@ -218,4 +176,24 @@ class App extends Component {
   }
 }
 
-export default App;
+let mapStatetoProps = (state) =>{
+    return {
+      isFormDisplay:  state.isFormDisplay
+    }
+}
+
+let mapDispatchToProps = (dispatch, props) =>{
+  return {
+    onToggleForm : () =>{
+      dispatch(actions.onToggleForm());
+    },
+    onExitForm : () =>{
+      dispatch(actions.onExitForm());
+    },
+    onOpenForm : () =>{
+      dispatch(actions.onOpenForm());
+    }
+  }
+}
+
+export default connect(mapStatetoProps, mapDispatchToProps)(App);

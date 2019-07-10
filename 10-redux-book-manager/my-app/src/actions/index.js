@@ -11,3 +11,21 @@ export const addNewItem = (task) =>{
         task
     }
 }
+
+export const onToggleForm = () =>{
+    return {
+        type: types.ON_TOGGLE_FORM
+    }
+}
+
+export const onExitForm = () =>{
+    return {
+        type: types.ON_EXIT_FORM
+    }
+}
+
+export const onOpenForm = () =>{
+    return {
+        type: types.OPEN_FORM
+    }
+}
