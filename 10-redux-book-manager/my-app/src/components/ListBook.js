@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Input,FormGroup,  Row, Table, Badge } from 'reactstrap';
 import {connect} from 'react-redux';
+import *as actions from '../actions/index';
 
 class ListBook extends Component {
     constructor(props) {
@@ -21,7 +22,7 @@ class ListBook extends Component {
 
     changeStatus(id) {
         
-        this.props.onChangeStatus(id);
+       this.props.onChangeStatus(id);
 
     }
     onRemove(id) {
@@ -168,6 +169,14 @@ let itemStatetoProps = (state) =>{
         books: state.tasks
     }
 }
+
+let dispatchToProps = (dispatch, props) => {
+    return {
+        onChangeStatus : (id) =>{
+            dispatch(actions.onChangeStatus(id));
+        }
+    }
+}
  
 
-export default connect(itemStatetoProps, null)(ListBook);
+export default connect(itemStatetoProps, dispatchToProps)(ListBook);

@@ -23,8 +23,6 @@ class App extends Component {
     }
 
     this.onToggleForm = this.onToggleForm.bind(this);
-  
-    this.onChangeStatus = this.onChangeStatus.bind(this);
     this.onRemoveItem = this.onRemoveItem.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
     this.onFilter = this.onFilter.bind(this);
@@ -53,27 +51,8 @@ class App extends Component {
     this.props.onOpenForm();
 
   } 
-  // change status
-  onChangeStatus(data){
-    
-    let listTasks = this.state.books;
-    let index;
-    listTasks.forEach((item)=>{
-      if(item.id === data){
-          index = listTasks.indexOf(item);
-      }
-    });
   
-    if(listTasks[index].status === 'Hot'){
-        listTasks[index].status = 'Medium';
-    }else{
-      listTasks[index].status = 'Hot';
-    }
-    this.setState({
-      books: listTasks
-    });
-    localStorage.setItem('books', JSON.stringify(listTasks));
-  }
+ 
   // remove 1 item in lists
   onRemoveItem(data){
     
@@ -164,9 +143,7 @@ class App extends Component {
                       itemFilter={itemFilter}
                       onFilter={this.onFilter}
                       onUpdate={this.onUpdate}
-                      onRemoveItem={this.onRemoveItem}
-                      onChangeStatus={this.onChangeStatus} 
-                      // books={this.state.books}
+                      onRemoveItem={this.onRemoveItem}                
                       />
             </Col>
           </Row>

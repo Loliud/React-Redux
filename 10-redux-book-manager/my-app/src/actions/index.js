@@ -29,3 +29,10 @@ export const onOpenForm = () =>{
         type: types.OPEN_FORM
     }
 }
+
+export const onChangeStatus = (id) =>{
+    return {
+        type: types.ON_CHANGE_STATUS,
+        id
+    }
+}
