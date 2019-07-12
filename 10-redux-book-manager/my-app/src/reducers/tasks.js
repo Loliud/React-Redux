@@ -33,7 +33,7 @@ let myReducer = (state = initialState, action) =>{
             state[index] = cloneBook;
             lists[index] = cloneBook;
             localStorage.setItem("books", JSON.stringify(lists));
-            return [...state];
+            return [...lists];
         // xoa 1 book trong danh sach
         case types.ON_REMOVE_BOOK:
             state =  JSON.parse(localStorage.getItem('books'));
