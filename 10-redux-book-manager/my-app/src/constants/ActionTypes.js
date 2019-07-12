@@ -4,3 +4,6 @@ export const OPEN_FORM = 'OPEN_FORM';
 export const ON_TOGGLE_FORM = 'ON_TOGGLE_FORM';
 export const ON_EXIT_FORM = 'ON_EXIT_FORM';
 export const ON_CHANGE_STATUS = 'ON_CHANGE_STATUS';
+export const ON_REMOVE_BOOK = 'ON_REMOVE_BOOK';
+export const ON_EDIT_TASK = 'ON_EDIT_TASK';
+export const ON_CLEAR_TASK = 'ON_CLEAR_TASK';

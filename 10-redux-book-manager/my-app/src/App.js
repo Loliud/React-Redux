@@ -14,8 +14,6 @@ class App extends Component {
     super(props);
     this.state ={
       // neu trong local storage co data bua books thi se do data cho state
-      books: [],
-      taskEdit: null,
       filter: null,
       keyword: null,
       sortBy: null,
@@ -23,23 +21,23 @@ class App extends Component {
     }
 
     this.onToggleForm = this.onToggleForm.bind(this);
-    this.onRemoveItem = this.onRemoveItem.bind(this);
-    this.onUpdate = this.onUpdate.bind(this);
     this.onFilter = this.onFilter.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.onSort = this.onSort.bind(this);
   }
   
-  // truoc khi mount 
-  
- 
+
 
   // Exit task form
   onToggleForm(){
-    this.props.onToggleForm();
+    if(this.props.taskEdit !== null){
+      this.props.onClearContentTask();
+      this.props.onOpenForm();
+    }else{
+      this.props.onToggleForm();
+    }
+   
   }
-
-  // Submit task form
  
   // task form
   onExitTaskForm = () =>{
@@ -49,43 +47,10 @@ class App extends Component {
   // mo task form de edit
   onOpenTaskForm = ()=>{
     this.props.onOpenForm();
-
   } 
   
  
-  // remove 1 item in lists
-  onRemoveItem(data){
-    
-    let listTasks = this.state.books;
-    let index;
-    listTasks.forEach((item)=>{
-      if(item.id === data){
-          index = listTasks.indexOf(item);
-      }
-    });
-    listTasks.splice(index, 1);
-    
-    this.setState({
-      books: listTasks
-    });
-    localStorage.setItem('books', JSON.stringify(listTasks));
-    this.onExitTaskForm();
 
-  }
-  onUpdate(data){
-    let listBooks = this.state.books;
-    let editBook;
-    listBooks.forEach((item) =>{
-      if(item.id === data){
-        editBook = item;
-      }
-    });
-    this.setState({
-      taskEdit: editBook
-    });
-    this.onOpenTaskForm();
-
-  }
   onFilter(filterName, filterStatus){
    
     let filter = {
@@ -122,8 +87,7 @@ class App extends Component {
     }
     let {isFormDisplay} = this.props;
     let taskForm = isFormDisplay === true ? <TaskForm
-                                                      onExit={this.onExitTaskForm}
-                                                      taskEdit={this.state.taskEdit}
+                                                      onExit={this.onExitTaskForm}                                       
                                                       /> : '';
     return (
       <div className="box">
@@ -141,9 +105,7 @@ class App extends Component {
                       sortBy={sortBy} 
                       sortValue={sortValue}
                       itemFilter={itemFilter}
-                      onFilter={this.onFilter}
-                      onUpdate={this.onUpdate}
-                      onRemoveItem={this.onRemoveItem}                
+                      onFilter={this.onFilter}           
                       />
             </Col>
           </Row>
@@ -155,7 +117,8 @@ class App extends Component {
 
 let mapStatetoProps = (state) =>{
     return {
-      isFormDisplay:  state.isFormDisplay
+      isFormDisplay:  state.isFormDisplay,
+      taskEdit: state.taskEdit
     }
 }
 
@@ -169,6 +132,9 @@ let mapDispatchToProps = (dispatch, props) =>{
     },
     onOpenForm : () =>{
       dispatch(actions.onOpenForm());
+    },
+    onClearContentTask: () =>{
+      dispatch(actions.onClearContentTast());
     }
   }
 }

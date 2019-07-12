@@ -147,7 +147,7 @@ class TaskForm extends Component {
 
 let mapStatetoProps = (state) =>{
     return {
-
+        taskEdit: state.taskEdit
     }
 }
 

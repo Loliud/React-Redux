@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { Button, Input,FormGroup,  Row, Table, Badge } from 'reactstrap';
-import {connect} from 'react-redux';
+import { Button, Input, FormGroup, Row, Table, Badge } from 'reactstrap';
+import { connect } from 'react-redux';
 import *as actions from '../actions/index';
 
 class ListBook extends Component {
     constructor(props) {
         super(props);
-        
-        this.state ={
+
+        this.state = {
             filterName: '',
             filterStatus: ''
         }
@@ -21,32 +21,40 @@ class ListBook extends Component {
     }
 
     changeStatus(id) {
-        
-       this.props.onChangeStatus(id);
+
+        this.props.onChangeStatus(id);
 
     }
     onRemove(id) {
-       
-       this.props.onRemoveItem(id);
+        this.props.onRemoveBook(id);
+
     }
 
     onUpdate(id) {
-        this.props.onUpdate(id);
-        
+        let index;
+        for (let i = 0; i < this.props.books.length; i++) {
+            if (this.props.books[i].id === id) {
+                index = i;
+            }
+        }
+        let taskEdit = { ...this.props.books[index] };
+        this.props.onEditTask(taskEdit);
+        this.props.onOpenForm();
+
     }
 
-    onChange(event){
+    onChange(event) {
         let target = event.target;
         let value = target.value;
         let name = target.name;
-        
+
         this.props.onFilter(
             name === 'filterName' ? value : this.state.filterName,
             name === 'filterStatus' ? value : this.state.filterStatus,
         );
         this.setState({
-            [name] : value
-          });
+            [name]: value
+        });
 
     }
 
@@ -54,54 +62,54 @@ class ListBook extends Component {
         let listBooks = this.props.books;
         let sortBy = this.props.sortBy;
         let sortValue = this.props.sortValue;
-      
+
         const filterItem = this.props.itemFilter;
-    
-        if(typeof(filterItem) === 'string'){
-            listBooks = listBooks.filter((task)=>{
-                
+
+        if (typeof (filterItem) === 'string') {
+            listBooks = listBooks.filter((task) => {
+
                 return task.name.toLowerCase().indexOf(filterItem.toLowerCase()) !== -1
-                
+
             });
         }
-        else if(filterItem !== null){
-           if(filterItem.filterName){
-            listBooks = listBooks.filter((task)=>{
-               return task.name.toLowerCase().indexOf(filterItem.filterName.toLowerCase()) !== -1  
-            });
-           }   
-        }
-        
-        if(filterItem && filterItem.filterStatus){
-           
-                listBooks = listBooks.filter((item)=>{
-                        let result;
-                     if(filterItem.filterStatus === item.status){
-                         result = item;
-                     }
-                     return result;
+        else if (filterItem !== null) {
+            if (filterItem.filterName) {
+                listBooks = listBooks.filter((task) => {
+                    return task.name.toLowerCase().indexOf(filterItem.filterName.toLowerCase()) !== -1
                 });
-           
+            }
+        }
+
+        if (filterItem && filterItem.filterStatus) {
+
+            listBooks = listBooks.filter((item) => {
+                let result;
+                if (filterItem.filterStatus === item.status) {
+                    result = item;
+                }
+                return result;
+            });
+
         }
 
         // sap xep
-        if(sortBy === 'name'){
-            listBooks.sort((a,b) =>{
-                if(a.name > b.name){
+        if (sortBy === 'name') {
+            listBooks.sort((a, b) => {
+                if (a.name > b.name) {
                     return sortValue;
                 }
-                if(a.name < b.name){
+                if (a.name < b.name) {
                     return -sortValue;
                 }
-                    return 0;
-                
+                return 0;
+
             });
         }
-        
-        
-    
-       
-     
+
+
+
+
+
         //tra ve moi item book trong danh sach
         let elements = listBooks.map((book, index) => {
             return <tr key={index} style={{ textAlign: 'center' }} className="item">
@@ -143,12 +151,12 @@ class ListBook extends Component {
                             <th scope="row"></th>
                             <td><Input type="text" name="filterName" value={this.state.filterName} onChange={this.onChange} /></td>
                             <td style={{ textAlign: 'center' }}>
-                              <FormGroup >
-                                <Input type="select" name="filterStatus" value={this.state.filterStatus} onChange={this.onChange}>
-                                    <option value="">Lựa chọn</option>
-                                    <option value="Hot">Hot</option>
-                                    <option value="Medium">Medium</option>
-                                </Input>
+                                <FormGroup >
+                                    <Input type="select" name="filterStatus" value={this.state.filterStatus} onChange={this.onChange}>
+                                        <option value="">Lựa chọn</option>
+                                        <option value="Hot">Hot</option>
+                                        <option value="Medium">Medium</option>
+                                    </Input>
                                 </FormGroup>
                             </td>
                             <td></td>
@@ -164,7 +172,7 @@ class ListBook extends Component {
 
     }
 }
-let itemStatetoProps = (state) =>{
+let itemStatetoProps = (state) => {
     return {
         books: state.tasks
     }
@@ -172,11 +180,22 @@ let itemStatetoProps = (state) =>{
 
 let dispatchToProps = (dispatch, props) => {
     return {
-        onChangeStatus : (id) =>{
+        onChangeStatus: (id) => {
             dispatch(actions.onChangeStatus(id));
+        },
+        onRemoveBook: (id) => {
+            dispatch(actions.onRemoveBook(id));
+        },
+        onEditTask: (task) => {
+            dispatch(actions.onEditTask(task));
+
+        },
+        onOpenForm: () => {
+            dispatch(actions.onOpenForm());
         }
+
     }
 }
- 
+
 
 export default connect(itemStatetoProps, dispatchToProps)(ListBook);

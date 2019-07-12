@@ -36,3 +36,23 @@ export const onChangeStatus = (id) =>{
         id
     }
 }
+
+export const onRemoveBook = (id) =>{
+    return{
+        type: types.ON_REMOVE_BOOK,
+        id
+    }
+}
+
+export const onEditTask = (task) =>{
+    return {
+        type : types.ON_EDIT_TASK,
+        task
+    }
+}
+
+export const onClearContentTast = () =>{
+    return {
+        type: types.ON_CLEAR_TASK
+    }
+}
