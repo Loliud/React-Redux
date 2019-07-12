@@ -75,16 +75,29 @@ class TaskForm extends Component {
     }
 
     onSubmit(event) {
+
         event.preventDefault();
+        let id = this.state.id;
+        let index = 0;
+        for(let i = 0; i < this.props.books.length; i++){
+            if(id === this.props.books[i].id){
+                index = 1;
+            }
+        }
+        if(index === 1){
+            this.props.onUpdateTask(this.state);
+        }else{
+            this.props.onAddTask(this.state);
+        }
         this.props.onExit();
-        console.log(this.props.onAddTask(this.state));
+       
        
     }
     // cach dung arrow function de ko can bind
 
     allRemove = () => {
         this.setState({
-            id: '',
+            id: this.state.id,
             name: '',
             amount: '',
             status: ''
@@ -147,6 +160,7 @@ class TaskForm extends Component {
 
 let mapStatetoProps = (state) =>{
     return {
+        books: state.tasks,
         taskEdit: state.taskEdit
     }
 }
@@ -155,6 +169,9 @@ let mapDispatchToProps = (dispatch, props) =>{
     return {
         onAddTask: (task)=>{
             dispatch(actions.addNewItem(task));
+        },
+        onUpdateTask: (task) =>{
+            dispatch(actions.onUpdateTask(task));
         }
     }
 }

@@ -37,6 +37,12 @@ let myReducer = (state = initialState, action) =>{
             state.splice(index, 1);
             localStorage.setItem("books", JSON.stringify(state));
             return [...state];
+            
+        case types.ON_UPDATE_TASK:
+            index = findIndex(state, action.task.id);
+            state[index] = action.task;
+            localStorage.setItem("books", JSON.stringify(state));
+            return [...state];
 
         default:
             return state;

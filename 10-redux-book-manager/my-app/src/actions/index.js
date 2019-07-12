@@ -56,3 +56,9 @@ export const onClearContentTast = () =>{
         type: types.ON_CLEAR_TASK
     }
 }
+export const onUpdateTask = (task) =>{
+    return {
+        type: types.ON_UPDATE_TASK,
+        task
+    }
+}
