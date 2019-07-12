@@ -70,3 +70,10 @@ export const onFilterItem = (filterName, filterStatus) =>{
         filterStatus
     }
 }
+
+export const onSearch = (value) =>{
+    return {
+        type: types.ON_SEARCH_ITEM,
+        value
+    }
+}

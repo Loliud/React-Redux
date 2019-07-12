@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, InputGroup, Input , Col } from 'reactstrap';
-
+import {connect} from 'react-redux';
+import *as actions from '../actions/index';
 
 class Search extends Component {
     constructor(props) {
@@ -39,5 +40,12 @@ class Search extends Component {
         );
     }
 }
+let mapDispatchToProps = (dispatch, props) =>{
+    return {
+        onSearch: (value) =>{
+            dispatch(actions.onSearch(value));
+        }
+    }
+}
 
-export default Search;
+export default connect('', mapDispatchToProps)(Search);

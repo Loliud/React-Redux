@@ -35,7 +35,9 @@ let myReducer = (state = initialState, action) =>{
             return [...state];
         // xoa 1 book trong danh sach
         case types.ON_REMOVE_BOOK:
+            state =  JSON.parse(localStorage.getItem('books'));
             index = findIndex(state, action.id);
+            
             state.splice(index, 1);
             localStorage.setItem("books", JSON.stringify(state));
             return [...state];
@@ -57,9 +59,9 @@ let myReducer = (state = initialState, action) =>{
                         return item.status === filterStatus;
                     });
                 }
-              
           
             return tasks;
+       
         default:
             return state;
     }
