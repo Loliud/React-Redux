@@ -63,13 +63,24 @@ class ListBook extends Component {
     render() {
         let listBooks = this.props.books;
         let itemSearch = this.props.itemSearch;
-        console.log(listBooks);
-        console.log(itemSearch);
+        let filterItem = this.props.filterItem;
+        if(filterItem.filterName){
+            listBooks =  listBooks.filter((item) =>{
+                return item.name.toLowerCase().indexOf(filterItem.filterName.toLowerCase()) !== -1;
+            }); 
+        }
+        if(filterItem.filterStatus){
+            listBooks =  listBooks.filter((item) =>{
+                return item.status === filterItem.filterStatus;
+            }); 
+        }
+
         if(itemSearch){
             listBooks =  listBooks.filter((item) =>{
                 return item.name.toLowerCase().indexOf(itemSearch.toLowerCase()) !== -1;
             }); 
         }
+        
        
         //tra ve moi item book trong danh sach
         let elements = listBooks.map((book, index) => {
@@ -136,7 +147,8 @@ class ListBook extends Component {
 let itemStatetoProps = (state) => {
     return {
         books: state.tasks,
-        itemSearch: state.itemSearch
+        itemSearch: state.itemSearch,
+        filterItem: state.filterItem
     }
 }
 

@@ -47,20 +47,7 @@ let myReducer = (state = initialState, action) =>{
             state[index] = action.task;
             localStorage.setItem("books", JSON.stringify(state));
             return [...state];
-        case types.ON_FILTER_ITEM:
-            let {filterName, filterStatus} = action;
-            let tasks = JSON.parse(localStorage.getItem('books'));
-        
-                tasks =  tasks.filter((item) =>{
-                    return item.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1;
-                });
-                if(filterStatus !== ''){
-                    tasks = tasks.filter((item) =>{
-                        return item.status === filterStatus;
-                    });
-                }
-          
-            return tasks;
+       
        
         default:
             return state;
