@@ -79,6 +79,7 @@ class TaskForm extends Component {
         event.preventDefault();
         let id = this.state.id;
         let index = 0;
+        
         for(let i = 0; i < this.props.books.length; i++){
             if(id === this.props.books[i].id){
                 index = 1;
@@ -110,9 +111,7 @@ class TaskForm extends Component {
     render() {
 
         const onExit = this.props.onExit;
-        const taskEdit = this.state;
-        let id = taskEdit.id;
-        let title = id ? 'Cập nhật sách' : 'Thêm sách mới'
+        let title = this.props.taskEdit ? 'Cập nhật sách' : 'Thêm sách mới'
         return (
 
             <Col sm="4">
