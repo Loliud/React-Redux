@@ -77,3 +77,10 @@ export const onSearch = (value) =>{
         value
     }
 }
+export const onSort = (sortBy, sortValue) =>{
+    return{
+        type: types.ON_SORT_ITEM,
+        sortBy,
+        sortValue
+    }
+}

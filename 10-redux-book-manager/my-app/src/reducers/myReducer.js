@@ -3,6 +3,7 @@ import isFormDisplay from './isFormDisplay';
 import taskEdit from './taskEditting';
 import itemSearch from './onSearchItem';
 import filterItem from './onFilterItem';
+import selectSort from './onSort';
 import {combineReducers} from 'redux';
 
 
@@ -12,7 +13,8 @@ let myReducer = combineReducers({
     isFormDisplay,
     taskEdit,
     itemSearch,
-    filterItem
+    filterItem,
+    selectSort
 
 });
 

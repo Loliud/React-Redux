@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { UncontrolledButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle, Col } from 'reactstrap';
-
+import {connect} from 'react-redux';
+import *as actions from '../actions/index';
 
 class Sort extends Component {
     constructor(props) {
@@ -10,8 +11,8 @@ class Sort extends Component {
 
 
     onSort(sortBy, sortValue){
-       
-        this.props.onSort(sortBy, sortValue);
+       this.props.onSort(sortBy, sortValue);
+        
     }
 
 
@@ -39,4 +40,11 @@ class Sort extends Component {
     }
 }
 
-export default Sort;
+let mapDispatchToProps = (dispatch, props) =>{
+    return {
+        onSort: (sortBy, sortValue) =>{
+            dispatch(actions.onSort(sortBy, sortValue));
+        }
+    }
+}
+export default connect(null, mapDispatchToProps)(Sort);

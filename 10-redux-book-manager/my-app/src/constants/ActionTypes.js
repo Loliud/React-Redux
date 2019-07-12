@@ -10,3 +10,4 @@ export const ON_CLEAR_TASK = 'ON_CLEAR_TASK';
 export const ON_UPDATE_TASK = 'ON_UPDATE_TASK';
 export const ON_FILTER_ITEM = 'ON_FILTER_ITEM';
 export const ON_SEARCH_ITEM = 'ON_SEARCH_ITEM';
+export const ON_SORT_ITEM = 'ON_SORT_ITEM';

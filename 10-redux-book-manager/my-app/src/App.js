@@ -11,12 +11,7 @@ import {connect} from 'react-redux';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state ={
-      // neu trong local storage co data bua books thi se do data cho state
-      keyword: null,
-      sortBy: null,
-      sortValue: null
-    }
+   
 
     this.onToggleForm = this.onToggleForm.bind(this);
   }

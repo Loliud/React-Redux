@@ -64,6 +64,8 @@ class ListBook extends Component {
         let listBooks = this.props.books;
         let itemSearch = this.props.itemSearch;
         let filterItem = this.props.filterItem;
+        let {sortBy, sortValue} = this.props.selectSort;
+        // loc tren table
         if(filterItem.filterName){
             listBooks =  listBooks.filter((item) =>{
                 return item.name.toLowerCase().indexOf(filterItem.filterName.toLowerCase()) !== -1;
@@ -75,13 +77,25 @@ class ListBook extends Component {
             }); 
         }
 
+        // search item
         if(itemSearch){
             listBooks =  listBooks.filter((item) =>{
                 return item.name.toLowerCase().indexOf(itemSearch.toLowerCase()) !== -1;
             }); 
         }
+
+        //sort
+        if(sortBy === 'name'){
+                listBooks =  listBooks.sort((a, b)=>{
+                    if(a.name > b.name) return sortValue;
+                    if(a.name < b.name) return -sortValue;
+                    else{
+                        return 0;
+                    }
+                });
+           
+        }
         
-       
         //tra ve moi item book trong danh sach
         let elements = listBooks.map((book, index) => {
             return <tr key={index} style={{ textAlign: 'center' }} className="item">
@@ -148,7 +162,8 @@ let itemStatetoProps = (state) => {
     return {
         books: state.tasks,
         itemSearch: state.itemSearch,
-        filterItem: state.filterItem
+        filterItem: state.filterItem,
+        selectSort: state.selectSort
     }
 }
 

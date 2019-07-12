@@ -3,6 +3,7 @@ let data = JSON.parse(localStorage.getItem('books'));
 
 let initialState = data ? data : [];
   
+// tim index
 let findIndex = function(list, id){
     let index;
     for(let i = 0; i < list.length; i++){
@@ -41,13 +42,12 @@ let myReducer = (state = initialState, action) =>{
             state.splice(index, 1);
             localStorage.setItem("books", JSON.stringify(state));
             return [...state];
-            
+        // update 1 book trong danh sach
         case types.ON_UPDATE_TASK:
             index = findIndex(state, action.task.id);
             state[index] = action.task;
             localStorage.setItem("books", JSON.stringify(state));
             return [...state];
-       
        
         default:
             return state;
