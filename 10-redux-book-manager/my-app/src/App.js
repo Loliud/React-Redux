@@ -19,8 +19,6 @@ class App extends Component {
     }
 
     this.onToggleForm = this.onToggleForm.bind(this);
-    this.onSearch = this.onSearch.bind(this);
-    this.onSort = this.onSort.bind(this);
   }
   // Exit task form
   onToggleForm(){

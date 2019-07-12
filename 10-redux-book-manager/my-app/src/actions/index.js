@@ -62,3 +62,11 @@ export const onUpdateTask = (task) =>{
         task
     }
 }
+
+export const onFilterItem = (filterName, filterStatus) =>{
+    return {
+        type: types.ON_FILTER_ITEM,
+        filterName,
+        filterStatus
+    }
+}

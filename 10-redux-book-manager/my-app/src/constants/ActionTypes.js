@@ -8,3 +8,4 @@ export const ON_REMOVE_BOOK = 'ON_REMOVE_BOOK';
 export const ON_EDIT_TASK = 'ON_EDIT_TASK';
 export const ON_CLEAR_TASK = 'ON_CLEAR_TASK';
 export const ON_UPDATE_TASK = 'ON_UPDATE_TASK';
+export const ON_FILTER_ITEM = 'ON_FILTER_ITEM';

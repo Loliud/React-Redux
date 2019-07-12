@@ -25,11 +25,13 @@ let myReducer = (state = initialState, action) =>{
             return [...state];
         // thay doi status
         case types.ON_CHANGE_STATUS:
-            var index = findIndex(state, action.id)
-            let cloneBook = {...state[index]};
+            let lists = JSON.parse(localStorage.getItem('books'));
+            var index = findIndex(lists, action.id)
+            let cloneBook = {...lists[index]};
             cloneBook.status = cloneBook.status === 'Hot' ? 'Medium' : 'Hot';
             state[index] = cloneBook;
-            localStorage.setItem("books", JSON.stringify(state));
+            lists[index] = cloneBook;
+            localStorage.setItem("books", JSON.stringify(lists));
             return [...state];
         // xoa 1 book trong danh sach
         case types.ON_REMOVE_BOOK:
@@ -43,7 +45,21 @@ let myReducer = (state = initialState, action) =>{
             state[index] = action.task;
             localStorage.setItem("books", JSON.stringify(state));
             return [...state];
-
+        case types.ON_FILTER_ITEM:
+            let {filterName, filterStatus} = action;
+            let tasks = JSON.parse(localStorage.getItem('books'));
+        
+                tasks =  tasks.filter((item) =>{
+                    return item.name.toLowerCase().indexOf(filterName.toLowerCase()) !== -1;
+                });
+                if(filterStatus !== ''){
+                    tasks = tasks.filter((item) =>{
+                        return item.status === filterStatus;
+                    });
+                }
+              
+          
+            return tasks;
         default:
             return state;
     }

@@ -48,68 +48,22 @@ class ListBook extends Component {
         let value = target.value;
         let name = target.name;
 
-        this.props.onFilter(
-            name === 'filterName' ? value : this.state.filterName,
-            name === 'filterStatus' ? value : this.state.filterStatus,
-        );
         this.setState({
-            [name]: value
+            filterName : name === 'filterName' ? value : this.state.filterName,
+            filterStatus : name === 'filterStatus' ? value : this.state.filterStatus
         });
-
+       
+        this.props.onFilterItem(
+            name === 'filterName' ? value : this.state.filterName,
+            name === 'filterStatus' ? value : this.state.filterStatus
+        );
+       
     }
 
     render() {
         let listBooks = this.props.books;
-        let sortBy = this.props.sortBy;
-        let sortValue = this.props.sortValue;
-
-        const filterItem = this.props.itemFilter;
-
-        if (typeof (filterItem) === 'string') {
-            listBooks = listBooks.filter((task) => {
-
-                return task.name.toLowerCase().indexOf(filterItem.toLowerCase()) !== -1
-
-            });
-        }
-        else if (filterItem !== null) {
-            if (filterItem.filterName) {
-                listBooks = listBooks.filter((task) => {
-                    return task.name.toLowerCase().indexOf(filterItem.filterName.toLowerCase()) !== -1
-                });
-            }
-        }
-
-        if (filterItem && filterItem.filterStatus) {
-
-            listBooks = listBooks.filter((item) => {
-                let result;
-                if (filterItem.filterStatus === item.status) {
-                    result = item;
-                }
-                return result;
-            });
-
-        }
-
-        // sap xep
-        if (sortBy === 'name') {
-            listBooks.sort((a, b) => {
-                if (a.name > b.name) {
-                    return sortValue;
-                }
-                if (a.name < b.name) {
-                    return -sortValue;
-                }
-                return 0;
-
-            });
-        }
-
-
-
-
-
+       
+    
         //tra ve moi item book trong danh sach
         let elements = listBooks.map((book, index) => {
             return <tr key={index} style={{ textAlign: 'center' }} className="item">
@@ -192,6 +146,9 @@ let dispatchToProps = (dispatch, props) => {
         },
         onOpenForm: () => {
             dispatch(actions.onOpenForm());
+        },
+        onFilterItem: (filterName, filterStatus) =>{
+            dispatch(actions.onFilterItem(filterName, filterStatus))
         }
 
     }
