@@ -2,8 +2,8 @@
   text-align: center;
   
 }
-#goAhead a{
- 
+/* #goAhead a{
+  
   height: 50px;
   width: 50px;
   position: fixed;
@@ -11,7 +11,25 @@
   right: 1.5%;
   border-radius: 50%;
   background-color: aqua;
+  opacity: 0.4;
+  transition: 0.6s;
 }
+#goAhead a:hover{
+  transform: scale(1.2);
+  opacity: 1;
+}
+#goAhead a::before{
+  content: '';
+  border: 10px solid white;
+  border-right-color: aqua;
+  border-top-color: aqua;
+  border-left-color: aqua;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -75%);
+  
+} */
 
 
 .App-logo {
