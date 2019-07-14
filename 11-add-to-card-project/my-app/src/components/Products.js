@@ -6,7 +6,7 @@ import {
 
 const Products = (props) => {
     return (
-        <Container style={{marginTop: "100px"}}>
+        <Container style={{marginTop: "100px", marginBottom: "100px"}}>
             <Row style={{marginBottom :"5rem"}}>
                 <Col sm="4">
                     <Card>

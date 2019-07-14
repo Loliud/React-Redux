@@ -1,0 +1,78 @@
+.wrap{
+    width: 100%;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    margin-bottom: 10rem;
+}
+.listBuys{
+
+    width: 70%;
+}
+.listBuys img{
+    height: 150px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.listBuys tbody tr{
+    border-bottom: 1.4px solid #DDD;
+}
+
+
+.listBuys tbody tr button{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-left: 0.5rem;
+    border: none;
+    transition: 0.5s;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+
+}
+.listBuys tbody tr button:nth-child(1){
+    outline: none;
+    background-color: #e8b6b6;
+}
+.listBuys tbody tr button:nth-child(2){
+    outline: none;
+    background-color: #73d6bf;
+}
+
+.listBuys tbody tr button:hover{
+    transform: scale(1.2);
+}
+
+#remove{
+    font-weight: bold;
+    color: white;
+    float: right;
+    width: 50px;
+    outline: none;
+    background-color: tomato;
+    border-radius: 10%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+#Purchase{
+    outline: none;
+    height: auto;
+    width: auto;
+    border-radius: 0%;
+    padding: 10px 10px;
+    position: absolute;
+    left:  50%;
+    bottom: 0%;
+    background-color: #d8a30f;
+    box-shadow: 0px 0px 5px #d8a30f;
+    color: white;
+    transition: 0.7s;
+}
+#Purchase:active{
+    transform: translate(-100px, 100px);
+}
+.Sum{
+    border-bottom: none !important;
+}
+.Sum td{
+    font-size: 30px;
+    font-weight: bold;
+}
