@@ -6,7 +6,7 @@ import filterItem from './onFilterItem';
 import selectSort from './onSort';
 import {combineReducers} from 'redux';
 
-
+console.log(tasks);
 
 let myReducer = combineReducers({
     tasks,
