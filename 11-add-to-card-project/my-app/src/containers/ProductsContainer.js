@@ -5,6 +5,8 @@ import {
     Card, CardImg, CardText, CardBody,
     CardTitle, Button, Col
 } from 'reactstrap';
+import PropTypes from 'prop-types';
+
 
 
 
@@ -48,6 +50,21 @@ let itemStatetoProps = (state) => {
         listProducts: state.products
     };
 }
+
+// kiem tra du lieu 
+
+ProductsContainer.propTypes ={
+    listProducts: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+            link: PropTypes.string.isRequired,
+            inventory: PropTypes.number.isRequired,
+            price: PropTypes.number.isRequired
+        }).isRequired
+    ).isRequired
+}
+
 
 
 
