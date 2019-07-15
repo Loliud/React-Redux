@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Products from './components/Products';
+import ProductsContainer from './containers/ProductsContainer';
 import Menu from './components/Menu';
 import ListBuys from './components/ListBuys';
 import Footer from './components/Footer';
@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <Menu/>
-      <Products/>
+      <ProductsContainer/>
       <ListBuys/>
       <Footer/>
       <div id="goAhead"><a href="#menu"></a></div>
