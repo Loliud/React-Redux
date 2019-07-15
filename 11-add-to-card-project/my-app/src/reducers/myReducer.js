@@ -1,9 +1,10 @@
 import {combineReducers} from 'redux';
 import products from './products';
-
+import listBuys from './listBuys';
 
 let myReducer = combineReducers({
-    products
+    products,
+    listBuys
 });
 
 export default myReducer;

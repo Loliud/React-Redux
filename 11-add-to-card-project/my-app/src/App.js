@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import ProductsContainer from './containers/ProductsContainer';
 import Menu from './components/Menu';
-import ListBuys from './components/ListBuys';
+import ListBuysContainer from './containers/ListBuysContainer';
 import Footer from './components/Footer';
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
     <div className="App">
       <Menu/>
       <ProductsContainer/>
-      <ListBuys/>
+      <ListBuysContainer/>
       <Footer/>
       <div id="goAhead"><a href="#menu"></a></div>
     </div>
