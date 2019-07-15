@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 // import './ListBuys.css';
 import ListBuys from '../components/ListBuys';
 import { connect } from 'react-redux';
+import { Alert } from 'reactstrap';
 import PropTypes from 'prop-types';
+
 
 class ListBuysContainer extends Component {
     constructor(props) {
@@ -20,27 +22,38 @@ class ListBuysContainer extends Component {
     }
     // render ra bang san pham
     showListBuys(listBuys) {
-        let tableProducts = listBuys.map((item, index) => {
-            return (
-                <tr key={index}>
-                    <td><img src={item.product.link}></img></td>
-                    <td>{item.product.name}</td>
-                    <td>{item.product.price}</td>
-                    <td>{item.quantity}<button>-</button><button>+</button></td>
-                    <td>{item.product.price * item.quantity} $<button id="remove">X</button> </td>
-                </tr>
-            )
+        if (listBuys.length > 0) {
+            let tableProducts = listBuys.map((item, index) => {
+                return (
+                    <tr key={index}>
+                        <td><img src={item.product.link}></img></td>
+                        <td>{item.product.name}</td>
+                        <td>{item.product.price}</td>
+                        <td>{item.quantity}<button>-</button><button>+</button></td>
+                        <td>{item.product.price * item.quantity} $<button id="remove">X</button> </td>
+                    </tr>
+                )
 
-        });
-        return tableProducts;
+            });
+            return tableProducts;
+        } else {
+            return (
+                <Alert color="warning" style={{fontSize: '25px'}}>
+                    Hiện không có sản phẩm nào trong giỏ hàng!
+              </Alert>
+            )
+        }
+
     }
     // tinh tong tien
     sum(listBuys) {
-        let sum = 0;
-        for (var i = 0; i < listBuys.length; i++) {
-            sum += listBuys[i].product.price * listBuys[i].quantity;
+        if (listBuys.length > 0) {
+            let sum = 0;
+            for (var i = 0; i < listBuys.length; i++) {
+                sum += listBuys[i].product.price * listBuys[i].quantity;
+            }
+            return sum;
         }
-        return sum;
 
     }
 }
@@ -50,6 +63,8 @@ let mapStateToProps = state => {
         listBuys: state.listBuys
     };
 };
+
+
 
 ListBuysContainer.propTypes = {
     listBuys: PropTypes.arrayOf(

@@ -6,7 +6,7 @@ import {
     CardTitle, Button, Col
 } from 'reactstrap';
 import PropTypes from 'prop-types';
-
+import *as actions from '../actions/index';
 
 
 
@@ -35,7 +35,7 @@ class ProductsContainer extends Component {
                         <CardBody>
                             <CardTitle style={{ fontWeight: 'bold', fontSize: '20px' }}>{item.name}</CardTitle>
                             <CardText>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quam adipisci distinctio iure tempora, dolor odio excepturi suscipit provident asperiores, assumenda libero impedit dolorum dolores maiores nostrum expedita? Esse, voluptate recusandae?</CardText>
-                            <Button color="primary">Add to card</Button>
+                            <Button color="primary" onClick={() => this.props.addToCard(item)}>Add to card</Button>
                         </CardBody>
                     </Card>
                 </Col>
@@ -51,6 +51,16 @@ let itemStatetoProps = (state) => {
         listProducts: state.products
     };
 }
+
+let mapDispatchToProps = (dispatch, props) =>{
+    return{
+        addToCard: (product) =>{
+            dispatch(actions.addToCard(product))
+        }
+    }
+}
+
+
 
 // kiem tra du lieu 
 
@@ -71,4 +81,4 @@ ProductsContainer.propTypes ={
 
 
 
-export default connect(itemStatetoProps, null)(ProductsContainer);
+export default connect(itemStatetoProps, mapDispatchToProps)(ProductsContainer);
