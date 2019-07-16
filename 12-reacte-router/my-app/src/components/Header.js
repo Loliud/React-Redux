@@ -8,7 +8,21 @@ import {
     NavItem,
     NavLink
 } from 'reactstrap';
-import { NavLink as NavLinkRounter } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
+import './Header.css';
+
+let MenuLink = ({ label, to, activeOnlyWhenExact }) => {
+    return (
+        <Route path={to} exact={activeOnlyWhenExact} children={({ match }) => {
+            let active = match ? 'linkActive' : '';
+            return (
+                <NavItem className={active}>
+                    <NavLink> <Link  to={to} >{label}</Link></NavLink>
+                </NavItem>
+            );
+        }} />
+    )
+}
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -32,15 +46,9 @@ export default class Header extends React.Component {
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
-                            <NavItem>
-                                <NavLink> <NavLinkRounter exact to="/" activeStyle={{ backgroundColor: "tomato"}}>Home</NavLinkRounter></NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink> <NavLinkRounter to="/about" activeStyle={{ backgroundColor: "tomato"}}  >About</NavLinkRounter></NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink> <NavLinkRounter to="/products" activeStyle={{ backgroundColor: "tomato"}}>Products</NavLinkRounter></NavLink>
-                            </NavItem>
+                            <MenuLink label="Home" activeOnlyWhenExact={true} to="/" />
+                            <MenuLink label="About" activeOnlyWhenExact={false} to="/about" />
+                            <MenuLink label="Products" activeOnlyWhenExact={false} to="/products" />
                         </Nav>
                     </Collapse>
                 </Navbar>
