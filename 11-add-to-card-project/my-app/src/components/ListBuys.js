@@ -28,7 +28,7 @@ class ListBuys extends Component {
                             <td></td>
                             <td>Tổng tiền</td>
                             <td>{this.props.sum} $</td>
-                            <button id="Purchase">COMPLETE PURCHASE</button>
+                            <button id="Purchase" onClick={this.props.purchase}>COMPLETE PURCHASE</button>
                         </tr>
 
                     </tbody>

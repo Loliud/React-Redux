@@ -42,3 +42,9 @@ export const onDownProduct = (card) =>{
         card
     }
 }
+
+export const onPurchase = () =>{
+    return{
+        type: types.ON_PURCHASE
+    }
+}

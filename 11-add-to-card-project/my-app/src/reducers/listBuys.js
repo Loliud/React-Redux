@@ -46,6 +46,12 @@ let myReducer = (state = inititalState, action) => {
                 alert('Số lượng sản phẩm phải từ 1!');
             }
             return [...state];
+        // submit mua hang va remove state
+        case types.ON_PURCHASE:
+            alert(messages.MSG_ADD_TO_CARD_SUCCESS);
+            state = [];
+            localStorage.setItem('listBuys', JSON.stringify(state));
+            return [...state];
         default:
             return [...state];
     }

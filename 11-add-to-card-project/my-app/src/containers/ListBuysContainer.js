@@ -16,7 +16,8 @@ class ListBuysContainer extends Component {
     render() {
 
         return (
-            <ListBuys sum={this.sum(this.props.listBuys)}>
+            <ListBuys sum={this.sum(this.props.listBuys)}
+                      purchase={this.props.onPurchase}  >
                 {this.showListBuys(this.props.listBuys)}
             </ListBuys>
         );
@@ -79,6 +80,9 @@ let mapDispatchToProps = (dispatch, props) =>{
         },
         onDownProduct: (card) =>{
             dispatch(actions.onDownProduct(card));
+        },
+        onPurchase: () =>{
+            dispatch(actions.onPurchase());
         }
         
     }
