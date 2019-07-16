@@ -4,6 +4,7 @@ import ListBuys from '../components/ListBuys';
 import { connect } from 'react-redux';
 import { Alert } from 'reactstrap';
 import PropTypes from 'prop-types';
+import *as actions from '../actions/index';
 
 
 class ListBuysContainer extends Component {
@@ -30,7 +31,7 @@ class ListBuysContainer extends Component {
                         <td>{item.product.name}</td>
                         <td>{item.product.price}</td>
                         <td>{item.quantity}<button>-</button><button>+</button></td>
-                        <td>{item.product.price * item.quantity} $<button id="remove">X</button> </td>
+                        <td>{item.product.price * item.quantity} $<button id="remove" onClick={() => this.props.onDeleteProduct(item)}>X</button> </td>
                     </tr>
                 )
 
@@ -64,6 +65,14 @@ let mapStateToProps = state => {
     };
 };
 
+let mapDispatchToProps = (dispatch, props) =>{
+    return {
+        onDeleteProduct: (card) =>{
+            dispatch(actions.onDeleteProduct(card));
+        }
+    }
+}
+
 
 
 ListBuysContainer.propTypes = {
@@ -81,4 +90,4 @@ ListBuysContainer.propTypes = {
     ).isRequired
 }
 
-export default connect(mapStateToProps, null)(ListBuysContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ListBuysContainer);
