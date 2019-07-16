@@ -28,3 +28,17 @@ export const onDeleteProduct = (card) =>{
         card
     }
 }
+
+export const onUpProduct = (card) =>{
+    return {
+        type: types.ON_UP_PRODUCT,
+        card
+    }
+}
+
+export const onDownProduct = (card) =>{
+    return {
+        type: types.ON_DOWN_PRODUCT,
+        card
+    }
+}

@@ -30,7 +30,11 @@ class ListBuysContainer extends Component {
                         <td><img src={item.product.link}></img></td>
                         <td>{item.product.name}</td>
                         <td>{item.product.price}</td>
-                        <td>{item.quantity}<button>-</button><button>+</button></td>
+                        <td>{item.quantity}<button 
+                            onClick={() => this.props.onDownProduct(item)}
+                            >-</button><button 
+                            onClick={()=> this.props.onUpProduct(item)}
+                            >+</button></td>
                         <td>{item.product.price * item.quantity} $<button id="remove" onClick={() => this.props.onDeleteProduct(item)}>X</button> </td>
                     </tr>
                 )
@@ -69,7 +73,14 @@ let mapDispatchToProps = (dispatch, props) =>{
     return {
         onDeleteProduct: (card) =>{
             dispatch(actions.onDeleteProduct(card));
+        },
+        onUpProduct: (card) =>{
+            dispatch(actions.onUpProduct(card));
+        },
+        onDownProduct: (card) =>{
+            dispatch(actions.onDownProduct(card));
         }
+        
     }
 }
 
