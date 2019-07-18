@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Toast, ToastBody, ToastHeader, Table, Button, Badge } from 'reactstrap';
+import { Toast, ToastBody, ToastHeader, Table, Button } from 'reactstrap';
 import ProductItem from '../Item/ProductItem';
 
 class Products extends Component {
