@@ -19,7 +19,7 @@ const routes = [
     {
         path: "/products",
         exact : false,
-        main: () => <Products/>
+        main: ({match}) => <Products match={match}/>
     },
     {
         path: '',
