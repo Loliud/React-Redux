@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { ListGroup, ListGroupItem } from 'reactstrap';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, Prompt } from 'react-router-dom';
 import Product from './Product';
+
 
 class Products extends Component {
     constructor(props) {
@@ -52,6 +53,7 @@ class Products extends Component {
                     {showProducts}
                 </ListGroup>
                 <Route path={`${url}/:name`} component={Product} />
+                <Prompt when={true} message={location => `ban thuc su muon den ${location.pathname}`} />
             </div>
         )
     }
