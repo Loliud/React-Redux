@@ -8,13 +8,17 @@ class ProductItem extends Component {
     }
 
     render() {
+
+        let {product, index} = this.props
+        let {status} = product;
+        
         return (
             <tr>
-                <th scope="row">1</th>
-                <td>3847384</td>
-                <td>Mèo ấn độ</td>
-                <td>1000 $</td>
-                <td><Badge color="success">Còn hàng</Badge></td>
+                <th scope="row">{index}</th>
+                <td>{product.id}</td>
+                <td>{product.name}</td>
+                <td>{product.price}</td>
+                <td><Badge color={status ? 'success' : 'dark'}>{status === true ? 'Còn hàng' : ' Hết hàng'}</Badge></td>
                 <td><Button color="success">Sửa</Button><Button color="danger">Xóa</Button></td>
             </tr>
 

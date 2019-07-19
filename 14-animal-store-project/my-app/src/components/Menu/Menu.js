@@ -1,5 +1,27 @@
 import React from 'react';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
+import Home from '../../pages/HomePage/Home';
+import { Link } from 'react-router-dom';
+
+const menus = [
+  {
+    name: 'Home',
+    path: '/',
+    exact: true
+  },
+  {
+    name: 'Products',
+    path: '/products',
+    exact: false
+  },
+  {
+    name: 'about',
+    path: '/about',
+    exact: false
+  },
+];
+
+
 
 export default class Menu extends React.Component {
   constructor(props) {
@@ -16,23 +38,30 @@ export default class Menu extends React.Component {
       collapsed: !this.state.collapsed
     });
   }
+
+  showMenus(menus) {
+    let showMenu = null;
+    showMenu = menus.map((menu, index) => {
+      return (
+        <NavItem key={index}>
+          <Link  to={menu.path} exact={menu.exact.toString()}>{menu.name}</Link>
+        </NavItem>
+      );
+    });
+    return showMenu;
+  }
+
   render() {
+
+
     return (
       <div>
-        <Navbar color="red" light style={{backgroundColor: "#cecec8", marginBottom:"4rem"}}>
-          <NavbarBrand href="/" className="mr-auto" style={{color: "#617153"}}>S.Loliud Pet Store</NavbarBrand>
+        <Navbar color="red" light style={{ backgroundColor: "#cecec8", marginBottom: "4rem" }}>
+          <NavbarBrand href="/" className="mr-auto" style={{ color: "#617153" }}>S.Loliud Pet Store</NavbarBrand>
           <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
           <Collapse isOpen={!this.state.collapsed} navbar>
             <Nav navbar>
-              <NavItem>
-                <NavLink href="#">Home</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="#">About</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="#">Products</NavLink>
-              </NavItem>
+              {this.showMenus(menus)}
             </Nav>
           </Collapse>
         </Navbar>
