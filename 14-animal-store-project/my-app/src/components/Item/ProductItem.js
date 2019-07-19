@@ -14,7 +14,7 @@ class ProductItem extends Component {
         
         return (
             <tr>
-                <th scope="row">{index}</th>
+                <th scope="row">{index + 1}</th>
                 <td>{product.id}</td>
                 <td>{product.name}</td>
                 <td>{product.price} $</td>

@@ -1,30 +1,49 @@
 import React, { Component } from 'react';
 import { Toast, ToastBody, ToastHeader, Table, Button } from 'reactstrap';
 import ProductItem from '../Item/ProductItem';
-import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import callApi from '../../utils/callerApi';
+
 
 class Products extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            products: []
+        }
     }
-    
+
+
+    componentDidMount() {
+        // nen de ham goi nay trong componentDidMount để tránh bất đồng bộ
+        callApi('AnimalStore', 'GET', null)
+        .then(res => {
+            this.setState({
+                products: res.data
+            })
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
+    }
+
 
     render() {
-      
-        let {products} = this.props;
-        products = products.map((item, index )=>{
+        let { products } = this.state;
+        products = products.map((item, index) => {
             return (
-                <ProductItem product={item} index={index} key={index}/>
+                <ProductItem product={item} index={index} key={index} />
             );
         });
 
-    
+
         return (
             <div>
                 <Link to="/product/add"><Button color="warning">Thêm sản phẩm</Button> </Link>
-                <div className="p-3 bg-info my-2 rounded">
-                    <Toast style={{ maxWidth: "100%", margin: "auto" }}>
+                <div className="p-5 bg-info my-2 rounded">
+                    <Toast style={{ maxWidth: "60%", margin: "auto" }}>
                         <ToastHeader>
                             <h3>Danh sách sản phẩm</h3>
                         </ToastHeader  >
@@ -52,10 +71,10 @@ class Products extends Component {
     }
 }
 
-let mapStateToProps = state =>{
+let mapStateToProps = state => {
     return {
-        products : state.products
+        products: state.products
     }
 }
 
-export default connect(mapStateToProps,null)(Products);
+export default connect(mapStateToProps, null)(Products);
