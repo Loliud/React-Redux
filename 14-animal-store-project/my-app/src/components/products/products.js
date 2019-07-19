@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Toast, ToastBody, ToastHeader, Table, Button } from 'reactstrap';
 import ProductItem from '../Item/ProductItem';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 class Products extends Component {
     constructor(props) {
@@ -10,35 +11,11 @@ class Products extends Component {
     
 
     render() {
-        let products = [
-            {
-                id: '3189233',
-                name: 'Mèo ấn độ',
-                price: 2000,
-                status: true
-            },
-            {
-                id: '232133',
-                name: 'Mèo thái lan',
-                price: 1000,
-                status: true
-            },
-            {
-                id: '923733',
-                name: 'Chó phú quốc',
-                price: 3000,
-                status: false
-            },
-            {
-                id: '99923233',
-                name: 'Chó Husky',
-                price: 4000,
-                status: true
-            }
-        ];
+      
+        let {products} = this.props;
         products = products.map((item, index )=>{
             return (
-                <ProductItem product={item} index={index}/>
+                <ProductItem product={item} index={index} key={index}/>
             );
         });
 
@@ -75,4 +52,10 @@ class Products extends Component {
     }
 }
 
-export default Products;
+let mapStateToProps = state =>{
+    return {
+        products : state.products
+    }
+}
+
+export default connect(mapStateToProps,null)(Products);

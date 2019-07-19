@@ -17,7 +17,7 @@ class ProductItem extends Component {
                 <th scope="row">{index}</th>
                 <td>{product.id}</td>
                 <td>{product.name}</td>
-                <td>{product.price}</td>
+                <td>{product.price} $</td>
                 <td><Badge color={status ? 'success' : 'dark'}>{status === true ? 'Còn hàng' : ' Hết hàng'}</Badge></td>
                 <td><Button color="success">Sửa</Button><Button color="danger">Xóa</Button></td>
             </tr>
