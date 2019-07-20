@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { Button, Badge } from 'reactstrap';
-
+import {Link} from 'react-router-dom';
 
 class ProductItem extends Component {
     constructor(props) {
         super(props)
+    }
+
+    onDelete = (id) =>{
+        this.props.onDelete(id);
     }
 
     render() {
@@ -19,7 +23,7 @@ class ProductItem extends Component {
                 <td>{product.name}</td>
                 <td>{product.price} $</td>
                 <td><Badge color={status ? 'success' : 'dark'}>{status === true ? 'Còn hàng' : ' Hết hàng'}</Badge></td>
-                <td><Button color="success">Sửa</Button><Button color="danger">Xóa</Button></td>
+                <td> <Link style={{color: "white"}} to={`/product/${product.id}/edit`}>  <Button color="success">Sửa</Button></Link><Button color="danger" onClick={() => this.onDelete(product.id)}>Xóa</Button></td>
             </tr>
 
         );

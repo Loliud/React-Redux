@@ -32,7 +32,7 @@ class App extends Component {
         );
       });
     }
-    console.log(showPage);
+    
     return (
       <Switch>{showPage}</Switch>
     );

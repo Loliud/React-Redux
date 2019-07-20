@@ -29,12 +29,42 @@ class Products extends Component {
 
     }
 
+    onDelete = (id) =>{
+        let {products} = this.state;
+        if(window.confirm('Bạn có chắc muốn xóa sản phẩm')){
+            callApi(`AnimalStore/${id}`, 'DELETE', null)
+            .then((res) =>{
+                console.log('Xoa thanh cong');
+            })
+            .catch((err) =>{
+                console.log(err);
+            });
+            console.log(id);
+            let index = this.findIndex(products, id);
+            products.splice(index, 1);
+            this.setState({
+                products: products
+            });
+        }
+
+    }
+
+    findIndex = (products, id) =>{
+        let result = -1;
+        products.forEach((product, index)=>{
+            if(product.id === id){
+                result = index;
+            }
+        }); 
+        return result;
+    }
+
 
     render() {
         let { products } = this.state;
         products = products.map((item, index) => {
             return (
-                <ProductItem product={item} index={index} key={index} />
+                <ProductItem product={item} index={index} key={index} onDelete={this.onDelete} />
             );
         });
 
