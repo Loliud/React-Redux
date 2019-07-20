@@ -46,18 +46,22 @@ export default class ProductAction extends React.Component {
     });
   }
 
+  goBack = () =>{
+    let {history} = this.props;
+    history.goBack();
+  }
+
   onSave = (event) => {
     event.preventDefault();
     if (this.state.id) {
       callApi(`AnimalStore/${this.state.id}`, 'PUT', this.state)
       .then(res =>{
-        var {history} = this.props;
-        history.goBack();
+        this.goBack();
       });
     } else {
-      callApi('AnimalStore', 'POST', this.state).then(res => {
-        let { history } = this.props;
-        history.goBack();
+      callApi('AnimalStore', 'POST', this.state)
+      .then(res => {
+        this.goBack();
       });
     }
 

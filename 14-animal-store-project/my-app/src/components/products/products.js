@@ -3,29 +3,21 @@ import { Toast, ToastBody, ToastHeader, Table, Button } from 'reactstrap';
 import ProductItem from '../Item/ProductItem';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import *as actions from '../../actions/actions';
 import callApi from '../../utils/callerApi';
+
 
 
 class Products extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            products: []
-        }
+       
     }
 
 
     componentDidMount() {
         // nen de ham goi nay trong componentDidMount để tránh bất đồng bộ
-        callApi('AnimalStore', 'GET', null)
-        .then(res => {
-            this.setState({
-                products: res.data
-            })
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+      this.props.onFetchProductsRequest();
 
     }
 
@@ -61,7 +53,7 @@ class Products extends Component {
 
 
     render() {
-        let { products } = this.state;
+        let {products} = this.props;
         products = products.map((item, index) => {
             return (
                 <ProductItem product={item} index={index} key={index} onDelete={this.onDelete} />
@@ -107,4 +99,14 @@ let mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, null)(Products);
+let distpatchMapToProps = (dispatch, props) =>{
+    return {
+        onFetchProductsRequest: () =>{
+            dispatch(actions.onFetchProductsRequest());
+        }
+    }
+}
+
+
+
+export default connect(mapStateToProps, distpatchMapToProps)(Products);
