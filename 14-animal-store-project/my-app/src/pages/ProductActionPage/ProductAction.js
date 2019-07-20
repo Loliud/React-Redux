@@ -2,7 +2,9 @@ import React from 'react';
 import { Col, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import callApi from '../../utils/callerApi';
 import { Link } from 'react-router-dom';
-export default class ProductAction extends React.Component {
+import {connect} from 'react-redux';
+import *as actions from '../../actions/actions';
+ class ProductAction extends React.Component {
   constructor(props) {
     super(props);
 
@@ -20,6 +22,8 @@ export default class ProductAction extends React.Component {
     let { match } = this.props;
     if (match) {
       let id = match.params.id;
+  
+      
       callApi(`AnimalStore/${id}`, 'GET', null)
         .then((res) => {
           let { id, name, price, status } = res.data;
@@ -54,15 +58,9 @@ export default class ProductAction extends React.Component {
   onSave = (event) => {
     event.preventDefault();
     if (this.state.id) {
-      callApi(`AnimalStore/${this.state.id}`, 'PUT', this.state)
-      .then(res =>{
-        this.goBack();
-      });
+      this.props.onUpdateProductRequest(this.state.id, this.state, this.goBack);
     } else {
-      callApi('AnimalStore', 'POST', this.state)
-      .then(res => {
-        this.goBack();
-      });
+      this.props.onAddProductRequest(this.state, this.goBack);
     }
 
 
@@ -104,3 +102,27 @@ export default class ProductAction extends React.Component {
     );
   }
 }
+
+let mapStateToProps = state => {
+  return {
+      products: state.products
+  }
+}
+
+let distpatchMapToProps = (dispatch, props) =>{
+  return {
+      onUpdateProductRequest: (id, productIsUpdated, callback) =>{
+          dispatch(actions.updateProductRequest(id, productIsUpdated, callback));
+      },
+      onAddProductRequest : (product, callback) =>{
+        dispatch(actions.addProductRequest(product, callback));
+      }
+  }
+}
+
+
+
+
+
+
+export default  connect(mapStateToProps, distpatchMapToProps)(ProductAction);

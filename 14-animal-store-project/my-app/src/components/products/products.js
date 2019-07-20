@@ -4,7 +4,7 @@ import ProductItem from '../Item/ProductItem';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import *as actions from '../../actions/actions';
-import callApi from '../../utils/callerApi';
+
 
 
 
@@ -22,34 +22,14 @@ class Products extends Component {
     }
 
     onDelete = (id) =>{
-        let {products} = this.state;
         if(window.confirm('Bạn có chắc muốn xóa sản phẩm')){
-            callApi(`AnimalStore/${id}`, 'DELETE', null)
-            .then((res) =>{
-                console.log('Xoa thanh cong');
-            })
-            .catch((err) =>{
-                console.log(err);
-            });
-            console.log(id);
-            let index = this.findIndex(products, id);
-            products.splice(index, 1);
-            this.setState({
-                products: products
-            });
+            this.props.onDeleteProductRequest(id);
         }
 
     }
+    
 
-    findIndex = (products, id) =>{
-        let result = -1;
-        products.forEach((product, index)=>{
-            if(product.id === id){
-                result = index;
-            }
-        }); 
-        return result;
-    }
+   
 
 
     render() {
@@ -103,6 +83,12 @@ let distpatchMapToProps = (dispatch, props) =>{
     return {
         onFetchProductsRequest: () =>{
             dispatch(actions.onFetchProductsRequest());
+        },
+        onDeleteProductRequest: (id) =>{
+            dispatch(actions.deleteProductRequest(id));
+        },
+        onUpdateProductRequest: (id, productIsUpdated) =>{
+            dispatch(actions.updateProductRequest(id, productIsUpdated));
         }
     }
 }
