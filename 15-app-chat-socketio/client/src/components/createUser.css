@@ -1,0 +1,68 @@
+h1{
+    text-align: center;
+    user-select: none;
+}
+form{
+    background-color: white;
+    padding: 50px;
+    box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 10px;
+    width: 20%;
+    margin: auto;
+}
+label{
+    color: #948989;
+    pointer-events: none;
+    transition: 0.2s;
+}
+.group-button{
+    position: relative;
+    margin: 20px auto;
+    margin-right: 0px;
+    margin-left: 0px;
+    padding-bottom: 10px;
+    padding-top: 5px;
+}
+p{
+    margin-top: 70px;
+    font-size: 13px;
+    color: #757070;
+   
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.group-button label{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+button{
+    margin: 10px auto;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    background: linear-gradient(90deg, rgba(97,192,205,1) 0%, rgba(63,105,130,1) 32%, rgba(168,0,255,1) 100%, rgba(93,75,166,1) 100%);
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.5);
+}
+input{
+    width: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 1.5px solid #0dccc1;
+}
+input:focus + label, input:valid + label  {
+    color: #0dccc1;
+    font-size: 14px;
+    top: -20px;
+}
